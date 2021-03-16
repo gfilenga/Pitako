@@ -8,31 +8,28 @@ namespace Pitako.Tests.CommandTests
     [TestClass]
     public class CreateQuestionTests
     {
-        [TestMethod]
-        public void ShouldValidateWhenCommandIsValid()
-        {
-            var user = new User("Guilherme", "gui.filenga@hotmail.com", "1234567");
-            var command = new CreateQuestionCommand(
+        private readonly CreateQuestionCommand _validCommand = new CreateQuestionCommand(
                     "Vida pessoal",
                     "Preciso de uma opinião na minha vida pessoal",
                     DateTime.Now,
-                    user);
-            command.Validate();
-            Assert.AreEqual(command.Valid, true);
+                    new User("Guilherme", "gui.filenga@hotmail.com", "1234567"));
+        private readonly CreateQuestionCommand _invalidCommand = new CreateQuestionCommand(
+                    "",
+                    "",
+                    DateTime.Now,
+                    new User("", "", ""));
+
+        [TestMethod]
+        public void ShouldValidateWhenCommandIsValid()
+        {
+            _validCommand.Validate();
+            Assert.AreEqual(_validCommand.Valid, true);
         }
         [TestMethod]
         public void ShouldNotValidateWhenCommandIsNotValid()
         {
-            // User com password menor que 6 caracteres
-            var user = new User("Guilherme", "gui.filenga@hotmail.com", "123");
-            // Title com menos de 2 caracteres
-            var command = new CreateQuestionCommand(
-                    "V",
-                    "Preciso de uma opinião na minha vida pessoal",
-                    DateTime.Now,
-                    user);
-            command.Validate();
-            Assert.AreEqual(command.Invalid, true);
+            _invalidCommand.Validate();
+            Assert.AreEqual(_invalidCommand.Invalid, true);
         }
     }
 }
