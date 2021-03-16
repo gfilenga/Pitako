@@ -1,10 +1,12 @@
 using System;
+using Flunt.Notifications;
+using Flunt.Validations;
 using Pitako.Domain.Commands.Contracts;
 using Pitako.Domain.Entities;
 
 namespace Pitako.Domain.Commands
 {
-    public class CreateQuestionCommand : ICommand
+    public class CreateQuestionCommand : Notifiable, ICommand
     {
         public CreateQuestionCommand() { }
         public CreateQuestionCommand(string title, string description, DateTime date, User user)
@@ -20,9 +22,15 @@ namespace Pitako.Domain.Commands
         public DateTime Date { get; set; }
         public User User { get; set; }
 
-        public bool Validate()
+        public void Validate()
         {
-            throw new NotImplementedException();
+            AddNotifications(
+                new Contract()
+                .HasMinLen(Title, 2, "Name", "Please, write a title with more than 2 letters")
+                .HasMaxLen(Title, 124, "Name", "Please, don't exceed 124 letters")
+                .HasMinLen(Description, 2, "Description", "Please, write a description with more than 2 letters")
+                .HasMaxLen(Description, 1024, "Description", "Please, don't exceed 1024 letters")
+            );
         }
     }
 }
