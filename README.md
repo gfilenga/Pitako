@@ -27,3 +27,9 @@
 
 - dotnet new mstest
 - dotnet add reference ..\Pitako.Domain\
+
+# Adicionando o flunt
+
+**Domain**
+
+- dotnet add package flunt
