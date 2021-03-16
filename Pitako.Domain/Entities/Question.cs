@@ -4,11 +4,12 @@ namespace Pitako.Domain.Entities
 {
     public class Question : Entity
     {
-        public Question(string title, string description, bool active, User user)
+        public Question(string title, string description, DateTime date, User user)
         {
             Title = title;
             Description = description;
             Active = true;
+            Date = date;
             User = user;
         }
 
@@ -16,6 +17,8 @@ namespace Pitako.Domain.Entities
 
         public string Description { get; private set; }
         public bool Active { get; private set; }
+
+        public DateTime Date { get; private set; }
         public User User { get; private set; }
 
         public void ToogleStatus()
