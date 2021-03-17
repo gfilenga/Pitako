@@ -86,7 +86,7 @@ namespace Pitako.Domain.Handlers
 
             return new GenericCommandResult(
                 true,
-                "Pergunta salva",
+                "Status atualizado",
                 question
             );
         }

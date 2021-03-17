@@ -9,7 +9,9 @@ namespace Pitako.Domain.Handlers
 {
     public class AnswerHandler :
         Notifiable,
-        IHandler<CreateAnswerCommand>
+        IHandler<CreateAnswerCommand>,
+        IHandler<ToggleActiveAnswerCommand>,
+        IHandler<UpdateAnswerCommand>
     {
         private readonly IAnswerRepository _repository;
 
@@ -43,6 +45,54 @@ namespace Pitako.Domain.Handlers
             return new GenericCommandResult(
                 true,
                 "Resposta criada",
+                answer
+            );
+        }
+
+        public ICommandResult Handle(ToggleActiveAnswerCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(
+                    false,
+                    "Resposta inválida",
+                    command.Notifications
+                );
+
+            var answer = _repository.GetById(command.Id, command.User);
+
+            answer.ToogleStatus();
+
+            _repository.Update(answer);
+
+            return new GenericCommandResult(
+                true,
+                "Status atualizado",
+                answer
+            );
+        }
+
+        public ICommandResult Handle(UpdateAnswerCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(
+                    false,
+                    "Resposta inválida",
+                    command.Notifications
+                );
+
+            var answer = _repository.GetById(command.Id, command.User);
+
+            // atualiza a descrição
+            answer.UpdateAnswer(command.Description);
+
+            // persiste os dados
+            _repository.Update(answer);
+
+            return new GenericCommandResult(
+                true,
+                "Resposta atualizada",
                 answer
             );
         }

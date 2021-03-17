@@ -35,6 +35,5 @@ namespace Pitako.Tests.Entities
             _answer.ToogleStatus();
             Assert.AreEqual(_answer.Active, false);
         }
-
     }
 }

@@ -19,7 +19,6 @@ namespace Pitako.Tests.Entities
         [TestMethod]
         public void ShouldStartAQuestionAsActiveTrue()
         {
-
             Assert.AreEqual(_question.Active, true);
         }
 
