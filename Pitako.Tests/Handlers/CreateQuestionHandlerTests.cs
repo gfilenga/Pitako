@@ -5,7 +5,7 @@ using Pitako.Domain.Entities;
 using Pitako.Domain.Handlers;
 using Pitako.Tests.Repositories;
 
-namespace Pitako.Tests.HandlerTests
+namespace Pitako.Tests.Handlers
 {
     [TestClass]
     public class CreateQuestionHandlerTests

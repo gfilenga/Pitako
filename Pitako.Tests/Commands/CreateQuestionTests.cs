@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
 
-namespace Pitako.Tests.CommandTests
+namespace Pitako.Tests.Command
 {
     [TestClass]
     public class CreateQuestionTests

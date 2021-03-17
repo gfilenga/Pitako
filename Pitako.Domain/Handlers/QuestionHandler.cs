@@ -33,7 +33,7 @@ namespace Pitako.Domain.Handlers
             }
 
             // Gerar a question
-            var question = new Question(command.Title, command.Description, command.Date, command.User);
+            var question = new Question(command.Title, command.Description, command.User);
 
             // Salva no banco
             _repository.Create(question);
