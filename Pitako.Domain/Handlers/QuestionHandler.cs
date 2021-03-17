@@ -44,7 +44,27 @@ namespace Pitako.Domain.Handlers
 
         public ICommandResult Handle(UpdateQuestionCommand command)
         {
-            throw new System.NotImplementedException();
+            // valida
+            command.Validate();
+            if (command.Invalid)
+            {
+                return new GenericCommandResult(
+                    false,
+                    "Ops, parece que sua pergunta está errada!",
+                    command.Notifications);
+            }
+
+            // recupera do banco
+            var question = _repository.GetById(command.Id, command.User);
+
+            // altera as infos
+            question.UpdateQuestion(command.Title, command.Description);
+
+            // salva no banco as infos novas
+            _repository.Update(question);
+
+            // retorna o resultado
+            return new GenericCommandResult(true, "Pergunta salva", question);
         }
     }
 }

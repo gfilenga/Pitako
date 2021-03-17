@@ -1,3 +1,4 @@
+using System;
 using Pitako.Domain.Entities;
 
 namespace Pitako.Domain.Repositories
@@ -6,5 +7,7 @@ namespace Pitako.Domain.Repositories
     {
         void Create(Question question);
         void Update(Question question);
+
+        Question GetById(Guid id, User user);
     }
 }
