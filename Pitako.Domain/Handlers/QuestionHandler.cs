@@ -10,7 +10,8 @@ namespace Pitako.Domain.Handlers
     public class QuestionHandler :
         Notifiable,
         IHandler<CreateQuestionCommand>,
-        IHandler<UpdateQuestionCommand>
+        IHandler<UpdateQuestionCommand>,
+        IHandler<ToggleActiveCommand>
     {
         private readonly IQuestionRepository _repository;
 
@@ -28,7 +29,7 @@ namespace Pitako.Domain.Handlers
             {
                 return new GenericCommandResult(
                     false,
-                    "Ops, parece que sua tarefa está errada!",
+                    "Ops, parece que sua pergunta está errada!",
                     command.Notifications);
             }
 
@@ -39,7 +40,7 @@ namespace Pitako.Domain.Handlers
             _repository.Create(question);
 
             // Retorna o resultado
-            return new GenericCommandResult(true, "Question criada", question);
+            return new GenericCommandResult(true, "Pergunta criada", question);
         }
 
         public ICommandResult Handle(UpdateQuestionCommand command)
@@ -65,6 +66,29 @@ namespace Pitako.Domain.Handlers
 
             // retorna o resultado
             return new GenericCommandResult(true, "Pergunta salva", question);
+        }
+
+        public ICommandResult Handle(ToggleActiveCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(
+                    false,
+                    "Ocorreu um erro ao mudar a privacidade da sua pergunta",
+                    command.Notifications
+                );
+
+            var question = _repository.GetById(command.Id, command.User);
+
+            question.ToogleStatus();
+
+            _repository.Update(question);
+
+            return new GenericCommandResult(
+                true,
+                "Pergunta salva",
+                question
+            );
         }
     }
 }
