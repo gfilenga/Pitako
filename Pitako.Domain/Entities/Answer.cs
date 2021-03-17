@@ -23,5 +23,10 @@ namespace Pitako.Domain.Entities
         {
             Active = !Active;
         }
+
+        public void UpdateAnswer(string description)
+        {
+            Description = description;
+        }
     }
 }
