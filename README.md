@@ -1,6 +1,6 @@
 # Pitako
 
-<p> Pitako é um projeto onde as pessoas podem fazer perguntas, de forma anônima ou não, e os outros usuários da plataforma podem dar pitacos na vida das pessoas.</p>
+<p> Pitako é uma plataforma onde as pessoas podem fazer perguntas, de forma anônima ou não, e os outros usuários podem dar pitacos na vida dessas pessoas.</p>
 
 # Estrutura inicial
 
