@@ -26,6 +26,7 @@
 
 - dotnet new classlib
 - dotnet add reference ..\Pitako.Domain\
+- dotnet add package Microsoft.EntityFrameworkCore.InMemory
 
 **Comando Tests**
 
