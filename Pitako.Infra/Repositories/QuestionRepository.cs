@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Pitako.Domain.Entities;
+using Pitako.Domain.Queries;
 using Pitako.Domain.Repositories;
 using Pitako.Infra.Contexts;
 
@@ -24,7 +26,10 @@ namespace Pitako.Infra.Repositories
 
         public IEnumerable<Question> GetAll(User user)
         {
-            throw new NotImplementedException();
+            return _context.Questions
+                .AsNoTracking()
+                .Where(QuestionQueries.GetAll(user))
+                .OrderBy(x => x.Date);
         }
 
         public IEnumerable<Question> GetAllActive(User user)
