@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Pitako.Domain.Entities;
 using Pitako.Domain.Repositories;
 
-namespace Pitako.Tests.Repositories
+namespace Pitako.Infra.Repositories
 {
-    public class FakeQuestionRepository : IQuestionRepository
+    public class QuestionRepository : IQuestionRepository
     {
         public void Create(Question question)
         {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Question> GetAll(User user)
@@ -33,12 +34,12 @@ namespace Pitako.Tests.Repositories
 
         public Question GetById(Guid id, User user)
         {
-            var user1 = new User("gui", "gui.filenga@hotmail.com", "1235678");
-            return new Question("AA", "AA", user1);
+            throw new NotImplementedException();
         }
 
         public void Update(Question question)
         {
+            throw new NotImplementedException();
         }
     }
 }
