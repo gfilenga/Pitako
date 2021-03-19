@@ -5,7 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Pitako.Domain.Handlers;
+using Pitako.Domain.Repositories;
 using Pitako.Infra.Contexts;
+using Pitako.Infra.Repositories;
 
 namespace Pitako.Api
 {
@@ -25,7 +28,8 @@ namespace Pitako.Api
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
             // services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
-
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<QuestionHandler, QuestionHandler>();
 
             services.AddSwaggerGen(c =>
             {
