@@ -34,22 +34,34 @@ namespace Pitako.Infra.Repositories
 
         public IEnumerable<Question> GetAllActive(User user)
         {
-            throw new NotImplementedException();
+            return _context.Questions
+                .AsNoTracking()
+                .Where(QuestionQueries.GetAllActive(user))
+                .OrderBy(x => x.Date);
         }
 
         public IEnumerable<Question> GetAllByPeriod(User user, DateTime date, bool active)
         {
-            throw new NotImplementedException();
+            return _context.Questions
+                .AsNoTracking()
+                .Where(QuestionQueries.GetByPeriod(user, date, active))
+                .OrderBy(x => x.Date);
         }
 
         public IEnumerable<Question> GetAllUnactive(User user)
         {
-            throw new NotImplementedException();
+            return _context.Questions
+                .AsNoTracking()
+                .Where(QuestionQueries.GetAllUnactive(user))
+                .OrderBy(x => x.Date);
         }
 
         public Question GetById(Guid id, User user)
         {
-            throw new NotImplementedException();
+            return _context.Questions
+               .AsNoTracking()
+               .Where(QuestionQueries.GetById(id, user))
+               .FirstOrDefault();
         }
 
         public void Update(Question question)
