@@ -21,6 +21,7 @@
 - dotnet new webapi
 - dotnet add reference ..\Pitako.Domain\
 - dotnet add reference ..\Pitako.Infra\
+- dotnet add package Microsoft.EntityFrameworkCore.InMemory
 
 **Comandos Infra**
 
