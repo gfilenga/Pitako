@@ -29,7 +29,7 @@ namespace Pitako.Domain.Handlers
             {
                 return new GenericCommandResult(
                     false,
-                    "Ops, parece que sua pergunta está errada!",
+                    "Ops, parece que sua pergunta está inválida!",
                     command.Notifications);
             }
 
