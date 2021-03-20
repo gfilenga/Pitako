@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
@@ -24,6 +25,16 @@ namespace Pitako.Api.Controllers
         [HttpPost]
         public GenericCommandResult Create(
             [FromBody] CreateUserCommand command,
+            [FromServices] UserHandler handler
+        )
+        {
+            return (GenericCommandResult)handler.Handle(command);
+        }
+
+        [Route("")]
+        [HttpPut]
+        public GenericCommandResult Update(
+            [FromBody] UpdateUserCommand command,
             [FromServices] UserHandler handler
         )
         {

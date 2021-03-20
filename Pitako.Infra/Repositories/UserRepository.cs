@@ -30,11 +30,10 @@ namespace Pitako.Infra.Repositories
 
         public User GetById(Guid id)
         {
-            // return _context.Users
-            //    .AsNoTracking()
-            //    .Where(UserQueries.GetById(id))
-            //    .FirstOrDefault();
-            throw new NotImplementedException();
+            return _context.Users
+               .AsNoTracking()
+               .Where(x => x.Id == id)
+               .FirstOrDefault();
         }
 
         public void Update(User user)
