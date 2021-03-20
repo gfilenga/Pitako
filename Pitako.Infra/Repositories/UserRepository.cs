@@ -23,6 +23,13 @@ namespace Pitako.Infra.Repositories
             _context.SaveChanges();
         }
 
+        public void Delete(Guid id)
+        {
+            var user = GetById(id);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _context.Users.AsNoTracking();

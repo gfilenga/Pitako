@@ -40,5 +40,15 @@ namespace Pitako.Api.Controllers
         {
             return (GenericCommandResult)handler.Handle(command);
         }
+
+        [Route("")]
+        [HttpDelete]
+        public GenericCommandResult Delete(
+            DeleteUserCommand command,
+            [FromServices] UserHandler handler
+        )
+        {
+            return (GenericCommandResult)handler.Handle(command);
+        }
     }
 }
