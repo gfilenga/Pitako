@@ -11,6 +11,11 @@ namespace Pitako.Tests.Repositories
         {
         }
 
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<User> GetAll()
         {
             throw new NotImplementedException();

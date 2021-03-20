@@ -9,7 +9,6 @@ namespace Pitako.Domain.Handlers
 {
     public class UserHandler :
         Notifiable,
-        IHandler<UpdateUserPasswordCommand>,
         IHandler<CreateUserCommand>,
         IHandler<UpdateUserCommand>,
         IHandler<DeleteUserCommand>
@@ -19,27 +18,6 @@ namespace Pitako.Domain.Handlers
         public UserHandler(IUserRepository repository)
         {
             _repository = repository;
-        }
-
-        public ICommandResult Handle(UpdateUserPasswordCommand command)
-        {
-            command.Validate();
-            if (command.Invalid)
-                return new GenericCommandResult(
-                    false,
-                    "Senha inválida",
-                    command.Notifications
-                );
-
-            var user = _repository.GetById(command.Id);
-
-            user.UpdatePassword(command.Password);
-
-            return new GenericCommandResult(
-                true,
-                "Senha atualizada",
-                user
-            );
         }
 
         public ICommandResult Handle(UpdateUserCommand command)

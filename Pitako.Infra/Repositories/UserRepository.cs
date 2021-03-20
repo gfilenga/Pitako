@@ -48,10 +48,5 @@ namespace Pitako.Infra.Repositories
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
         }
-
-        public void UpdatePassword(Guid id, string password)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
