@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Pitako.Domain.Entities;
 using Pitako.Domain.Handlers;
 using Pitako.Domain.Repositories;
 using Pitako.Infra.Contexts;
@@ -30,6 +31,8 @@ namespace Pitako.Api
 
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<QuestionHandler, QuestionHandler>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<UserHandler, UserHandler>();
 
             services.AddSwaggerGen(c =>
             {

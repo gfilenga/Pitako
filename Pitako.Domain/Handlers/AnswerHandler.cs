@@ -36,7 +36,7 @@ namespace Pitako.Domain.Handlers
             var question = _repository.GetQuestionById(command.Question.Id);
 
             // compõe os dados
-            var answer = new Answer(command.Description, user, question);
+            var answer = new Answer(command.Description, question, user);
 
             // persiste a resposta
             _repository.Create(answer);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Pitako.Domain.Entities;
 using Pitako.Domain.Repositories;
 
@@ -8,6 +9,11 @@ namespace Pitako.Tests.Repositories
     {
         public void Create(User user)
         {
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public User GetById(Guid id)

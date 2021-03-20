@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Pitako.Domain.Entities;
 
 namespace Pitako.Domain.Repositories
@@ -7,6 +8,8 @@ namespace Pitako.Domain.Repositories
     {
         void Create(User user);
         void Update(User user);
+
+        IEnumerable<User> GetAll();
         void UpdatePassword(Guid id, string password);
         User GetById(Guid id);
     }

@@ -4,7 +4,10 @@ namespace Pitako.Domain.Entities
 {
     public class Answer : Entity
     {
-        public Answer(string description, User user, Question question)
+        private Answer()
+        {
+        }
+        public Answer(string description, Question question, User user)
         {
             Description = description;
             Active = true;

@@ -14,7 +14,7 @@ namespace Pitako.Tests.Repositories
         {
             var user1 = new User("Gui", "gui.filenga@hotmail.com", "1234567");
             var question1 = new Question("Vida pessoal", "Preciso de ajuda", new User("Gui", "gui@hotmail.com", "1235457"));
-            var answer = new Answer("desc atualizada", user1, question1);
+            var answer = new Answer("desc atualizada", question1, user1);
             return answer;
         }
 

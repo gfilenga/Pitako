@@ -9,10 +9,6 @@ namespace Pitako.Tests.Entities
     {
         private readonly Answer _answer = new Answer(
                 "Descrição atualizada",
-                new User(
-                    "Guilherme",
-                    "gui.filenga@hotmail.com",
-                    "1234567"),
                 new Question(
                     "Vida Pessoal",
                     "Preciso de ajuda",
@@ -20,7 +16,11 @@ namespace Pitako.Tests.Entities
                         "Eduardo",
                         "edu.filenga@hotmail.com",
                         "1234567")
-                )
+                ),
+                new User(
+                    "Guilherme",
+                    "gui.filenga@hotmail.com",
+                    "1234567")
         );
 
         [TestMethod]
