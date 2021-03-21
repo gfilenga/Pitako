@@ -14,16 +14,19 @@ namespace Pitako.Domain.Handlers
         IHandler<ToggleActiveCommand>
     {
         private readonly IQuestionRepository _repository;
+        private readonly IUserRepository _userRepository;
 
-        public QuestionHandler(IQuestionRepository repository)
+        public QuestionHandler(
+            IQuestionRepository repository,
+            IUserRepository userRepository
+        )
         {
             _repository = repository;
+            _userRepository = userRepository;
         }
 
         public ICommandResult Handle(CreateQuestionCommand command)
         {
-            // Fail Fast Validation - Valida tudo, antes de tentar qualquer coisa
-            // utilizando o método validate criado dentro de cada command
             command.Validate();
             if (command.Invalid)
             {
@@ -33,8 +36,20 @@ namespace Pitako.Domain.Handlers
                     command.Notifications);
             }
 
+
+            var user = _userRepository.GetById(command.UserId);
+
+
+            if (user == null)
+            {
+                return new GenericCommandResult(
+                    false,
+                    "Ops, parece que seu usuário é inválido!",
+                    command.Notifications);
+            }
+
             // Gerar a question
-            var question = new Question(command.Title, command.Description, command.User);
+            var question = new Question(command.Title, command.Description, command.UserId);
 
             // Salva no banco
             _repository.Create(question);

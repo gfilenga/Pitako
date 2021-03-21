@@ -16,12 +16,10 @@ namespace Pitako.Infra.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<Question>().Property(x => x.Id);
-            // modelBuilder.Entity<Question>().Property(x => x.User).HasMaxLength(120).HasColumnType("varchar(120)");
-            // modelBuilder.Entity<Question>().Property(x => x.Title).HasMaxLength(160).HasColumnType("varchar(160)");
-            // modelBuilder.Entity<Question>().Property(x => x.Done).HasColumnType("bit");
-            // modelBuilder.Entity<Question>().Property(x => x.Date);
-            // modelBuilder.Entity<Question>().HasIndex(b => b.User);
+            modelBuilder.Entity<Question>()
+            .HasOne<User>(u => u.User)
+            .WithMany(q => q.Questions)
+            .HasForeignKey(u => u.UserId);
         }
     }
 }

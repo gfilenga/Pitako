@@ -32,7 +32,11 @@ namespace Pitako.Infra.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            return _context.Users.AsNoTracking();
+            return _context.Users
+                .AsNoTracking()
+                .Include(q => q.Questions)
+                .Include(a => a.Answers)
+                .ToList();
         }
 
         public User GetById(Guid id)

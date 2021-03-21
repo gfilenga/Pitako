@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Pitako.Domain.Entities
 {
@@ -8,20 +9,22 @@ namespace Pitako.Domain.Entities
         {
 
         }
-        public Question(string title, string description, User user)
+        public Question(string title, string description, Guid userId)
         {
             Title = title;
             Description = description;
             Active = true;
             Date = DateTime.Now;
-            User = user;
+            UserId = userId;
         }
 
         public string Title { get; private set; }
         public string Description { get; private set; }
         public bool Active { get; private set; }
         public DateTime Date { get; private set; }
+        public Guid UserId { get; private set; }
         public User User { get; private set; }
+        public ICollection<Answer> Answers { get; private set; }
 
         public void ToogleStatus()
         {
