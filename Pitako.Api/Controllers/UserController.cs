@@ -54,12 +54,17 @@ namespace Pitako.Api.Controllers
 
         [Route("{id}")]
         [HttpDelete]
-        public void Delete(
+        public GenericCommandResult Delete(
             string id,
             [FromServices] IUserRepository repository
         )
         {
             repository.Delete(id);
+            return new GenericCommandResult(
+                true,
+                "Usuário deletado!",
+                null
+            );
         }
     }
 }
