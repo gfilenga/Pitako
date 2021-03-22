@@ -9,7 +9,7 @@ namespace Pitako.Domain.Repositories
         void Create(Answer answer);
         void Update(Answer answer);
         void Delete(Guid id);
-        IEnumerable<Answer> GetAnswers(Guid questionId);
+        IEnumerable<Answer> GetAnswers(string questionId);
         User GetUserById(Guid id);
         Question GetQuestionById(Guid id);
         Answer GetById(Guid id);

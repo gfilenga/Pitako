@@ -136,7 +136,7 @@ namespace Pitako.Domain.Handlers
                     null
                 );
 
-            var answers = _repository.GetAnswers(command.QuestionId);
+            var answers = _repository.GetAnswers(command.QuestionId.ToString());
 
             if (answers == null)
                 return new GenericCommandResult(

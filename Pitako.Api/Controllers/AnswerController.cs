@@ -24,13 +24,13 @@ namespace Pitako.Api.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public GenericCommandResult GetByQuestion(
-            [FromBody] ListAnswersCommand command,
-            [FromServices] AnswerHandler handler
+        [Route("{questionId}")]
+        public IEnumerable<Answer> GetByQuestion(
+            string questionId,
+            [FromServices] IAnswerRepository repository
         )
         {
-            return (GenericCommandResult)handler.Handle(command);
+            return repository.GetAnswers(questionId);
         }
 
         [Route("")]

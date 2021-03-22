@@ -30,11 +30,11 @@ namespace Pitako.Infra.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Answer> GetAnswers(Guid questionId)
+        public IEnumerable<Answer> GetAnswers(string questionId)
         {
             return _context.Answers
                     .AsNoTracking()
-                    .Where(x => x.QuestionId == questionId)
+                    .Where(x => x.QuestionId.ToString() == questionId)
                     .OrderBy(x => x.Date);
         }
 
