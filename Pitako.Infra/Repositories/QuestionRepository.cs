@@ -56,11 +56,11 @@ namespace Pitako.Infra.Repositories
                 .OrderBy(x => x.Date);
         }
 
-        public Question GetById(Guid id, User user)
+        public Question GetById(Guid id)
         {
             return _context.Questions
                .AsNoTracking()
-               .Where(QuestionQueries.GetById(id, user))
+               .Where(QuestionQueries.GetById(id))
                .FirstOrDefault();
         }
 

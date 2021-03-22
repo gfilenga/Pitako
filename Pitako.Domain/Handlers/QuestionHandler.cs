@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Flunt.Notifications;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Commands.Contracts;
@@ -11,7 +13,8 @@ namespace Pitako.Domain.Handlers
         Notifiable,
         IHandler<CreateQuestionCommand>,
         IHandler<UpdateQuestionCommand>,
-        IHandler<ToggleActiveCommand>
+        IHandler<ToggleActiveCommand>,
+        IHandler<ListQuestionsCommand>
     {
         private readonly IQuestionRepository _repository;
         private readonly IUserRepository _userRepository;
@@ -66,12 +69,12 @@ namespace Pitako.Domain.Handlers
             {
                 return new GenericCommandResult(
                     false,
-                    "Ops, parece que sua pergunta está errada!",
+                    "Ops, parece que sua pergunta está inválida!",
                     command.Notifications);
             }
 
             // recupera do banco
-            var question = _repository.GetById(command.Id, command.User);
+            var question = _repository.GetById(command.Id);
 
             // altera as infos
             question.UpdateQuestion(command.Title, command.Description);
@@ -93,7 +96,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var question = _repository.GetById(command.Id, command.User);
+            var question = _repository.GetById(command.Id);
 
             question.ToogleStatus();
 
@@ -102,6 +105,27 @@ namespace Pitako.Domain.Handlers
             return new GenericCommandResult(
                 true,
                 "Status atualizado",
+                question
+            );
+        }
+
+        public ICommandResult Handle(ListQuestionsCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(
+                    false,
+                    "id inválido",
+                    command.Notifications
+                );
+
+            var user = _userRepository.GetById(command.UserId);
+
+            var question = _repository.GetAll(user);
+
+            return new GenericCommandResult(
+                true,
+                "Lista de perguntas: ",
                 question
             );
         }

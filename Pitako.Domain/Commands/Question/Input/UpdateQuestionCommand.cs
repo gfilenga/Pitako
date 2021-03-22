@@ -10,20 +10,18 @@ namespace Pitako.Domain.Commands
     {
         public UpdateQuestionCommand() { }
 
-        public UpdateQuestionCommand(Guid id, string title, string description, DateTime date, User user)
+        public UpdateQuestionCommand(Guid id, string title, string description)
         {
             Id = id;
             Title = title;
             Description = description;
-            Date = date;
-            User = user;
+            Date = DateTime.Now;
         }
 
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
-        public User User { get; set; }
 
         public void Validate()
         {

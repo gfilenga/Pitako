@@ -11,10 +11,9 @@ namespace Pitako.Domain.Commands
         public ToggleActiveCommand()
         {
         }
-        public ToggleActiveCommand(Guid id, User user)
+        public ToggleActiveCommand(Guid id)
         {
             Id = id;
-            User = user;
         }
 
         public Guid Id { get; set; }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -14,18 +16,28 @@ namespace Pitako.Api.Controllers
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<Question> GetAll(
-            [FromServices] IQuestionRepository repository,
-            [FromBody] User user
+        public GenericCommandResult List(
+            [FromBody] ListQuestionsCommand command,
+            [FromServices] QuestionHandler handler
         )
         {
-            return repository.GetAll(user);
+            return (GenericCommandResult)handler.Handle(command);
         }
 
         [Route("")]
         [HttpPost]
         public GenericCommandResult Create(
             [FromBody] CreateQuestionCommand command,
+            [FromServices] QuestionHandler handler
+        )
+        {
+            return (GenericCommandResult)handler.Handle(command);
+        }
+
+        [Route("")]
+        [HttpPut]
+        public GenericCommandResult Update(
+            [FromBody] UpdateQuestionCommand command,
             [FromServices] QuestionHandler handler
         )
         {

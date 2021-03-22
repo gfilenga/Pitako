@@ -6,13 +6,13 @@ namespace Pitako.Domain.Queries
 {
     public static class QuestionQueries
     {
-        public static Expression<Func<Question, bool>> GetById(Guid id, User user)
+        public static Expression<Func<Question, bool>> GetById(Guid id)
         {
-            return x => x.Id == id && x.User.Id == user.Id;
+            return x => x.Id == id;
         }
         public static Expression<Func<Question, bool>> GetAll(User user)
         {
-            return x => x.User.Id == user.Id;
+            return x => x.UserId == user.Id;
         }
 
         public static Expression<Func<Question, bool>> GetAllActive(User user)
