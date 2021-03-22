@@ -6,9 +6,9 @@ namespace Pitako.Domain.Queries
 {
     public static class QuestionQueries
     {
-        public static Expression<Func<Question, bool>> GetById(Guid id)
+        public static Expression<Func<Question, bool>> GetById(string id)
         {
-            return x => x.Id == id;
+            return x => x.Id.ToString() == id;
         }
         public static Expression<Func<Question, bool>> GetAllByUser(string id)
         {

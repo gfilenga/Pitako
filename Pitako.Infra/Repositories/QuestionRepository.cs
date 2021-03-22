@@ -26,7 +26,7 @@ namespace Pitako.Infra.Repositories
 
         public void Delete(Guid id)
         {
-            var question = GetById(id);
+            var question = _context.Questions.Find(id);
             _context.Questions.Remove(question);
             _context.SaveChanges();
         }
@@ -63,7 +63,7 @@ namespace Pitako.Infra.Repositories
                 .OrderBy(x => x.Date);
         }
 
-        public Question GetById(Guid id)
+        public Question GetById(string id)
         {
             return _context.Questions
                .AsNoTracking()

@@ -12,6 +12,16 @@ namespace Pitako.Api.Controllers
     [Route("v1/users")]
     public class UserController : ControllerBase
     {
+        [Route("{id}")]
+        [HttpGet]
+        public User Get(
+            string id,
+            [FromServices] IUserRepository repository
+        )
+        {
+            return repository.GetById(id);
+        }
+
         [Route("")]
         [HttpGet]
         public IEnumerable<User> List(
@@ -41,14 +51,14 @@ namespace Pitako.Api.Controllers
             return (GenericCommandResult)handler.Handle(command);
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpDelete]
-        public GenericCommandResult Delete(
-            DeleteUserCommand command,
-            [FromServices] UserHandler handler
+        public void Delete(
+            string id,
+            [FromServices] IUserRepository repository
         )
         {
-            return (GenericCommandResult)handler.Handle(command);
+            repository.Delete(id);
         }
     }
 }

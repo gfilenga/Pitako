@@ -41,7 +41,7 @@ namespace Pitako.Domain.Handlers
             }
 
 
-            var user = _userRepository.GetById(command.UserId);
+            var user = _userRepository.GetById(command.UserId.ToString());
 
 
             if (user == null)
@@ -75,7 +75,7 @@ namespace Pitako.Domain.Handlers
             }
 
             // recupera do banco
-            var question = _repository.GetById(command.Id);
+            var question = _repository.GetById(command.Id.ToString());
 
             // altera as infos
             question.UpdateQuestion(command.Title, command.Description);
@@ -97,7 +97,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var question = _repository.GetById(command.Id);
+            var question = _repository.GetById(command.Id.ToString());
 
             question.ToogleStatus();
 
@@ -120,7 +120,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var user = _userRepository.GetById(command.UserId);
+            var user = _userRepository.GetById(command.UserId.ToString());
 
             var question = _repository.GetAllByUser(user.Id.ToString());
 

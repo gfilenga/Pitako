@@ -30,7 +30,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var user = _repository.GetById(command.Id);
+            var user = _repository.GetById(command.Id.ToString());
 
             user.UpdateUser(command.Name, command.Email, command.Password);
 
@@ -74,7 +74,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            _repository.Delete(command.Id);
+            _repository.Delete(command.Id.ToString());
 
             return new GenericCommandResult(
                 true,

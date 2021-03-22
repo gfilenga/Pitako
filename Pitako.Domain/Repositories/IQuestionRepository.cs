@@ -9,7 +9,7 @@ namespace Pitako.Domain.Repositories
         void Create(Question question);
         void Update(Question question);
         void Delete(Guid id);
-        Question GetById(Guid id);
+        Question GetById(string id);
         IEnumerable<Question> GetAll();
         IEnumerable<Question> GetAllByUser(string id);
         IEnumerable<Question> GetAllActive(User user);
