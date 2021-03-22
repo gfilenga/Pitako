@@ -9,18 +9,16 @@ namespace Pitako.Domain.Commands
     public class CreateQuestionCommand : Notifiable, ICommand
     {
         public CreateQuestionCommand() { }
-        public CreateQuestionCommand(string title, string description, Guid userId)
+        public CreateQuestionCommand(string title, string description)
         {
             Title = title;
             Description = description;
             Date = DateTime.Now;
-            UserId = userId;
         }
 
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
-        public Guid UserId { get; set; }
 
         public void Validate()
         {

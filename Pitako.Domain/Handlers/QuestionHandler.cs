@@ -11,8 +11,6 @@ namespace Pitako.Domain.Handlers
 {
     public class QuestionHandler :
         Notifiable,
-        IHandler<CreateQuestionCommand>,
-        IHandler<UpdateQuestionCommand>,
         IHandler<ToggleActiveCommand>,
         IHandler<ListQuestionsCommand>
     {
@@ -28,7 +26,7 @@ namespace Pitako.Domain.Handlers
             _userRepository = userRepository;
         }
 
-        public ICommandResult Handle(CreateQuestionCommand command)
+        public ICommandResult Handle(CreateQuestionCommand command, string userId)
         {
             command.Validate();
             if (command.Invalid)
@@ -40,7 +38,7 @@ namespace Pitako.Domain.Handlers
             }
 
 
-            var user = _userRepository.GetById(command.UserId.ToString());
+            var user = _userRepository.GetById(userId);
 
 
             if (user == null)
@@ -52,7 +50,7 @@ namespace Pitako.Domain.Handlers
             }
 
             // Gerar a question
-            var question = new Question(command.Title, command.Description, command.UserId);
+            var question = new Question(command.Title, command.Description, new Guid(userId));
 
             // Salva no banco
             _repository.Create(question);
@@ -61,7 +59,7 @@ namespace Pitako.Domain.Handlers
             return new GenericCommandResult(true, "Pergunta criada", question);
         }
 
-        public ICommandResult Handle(UpdateQuestionCommand command)
+        public ICommandResult Handle(UpdateQuestionCommand command, string id)
         {
             // valida
             command.Validate();
@@ -74,7 +72,7 @@ namespace Pitako.Domain.Handlers
             }
 
             // recupera do banco
-            var question = _repository.GetById(command.Id.ToString());
+            var question = _repository.GetById(id);
 
             // altera as infos
             question.UpdateQuestion(command.Title, command.Description);
@@ -83,7 +81,7 @@ namespace Pitako.Domain.Handlers
             _repository.Update(question);
 
             // retorna o resultado
-            return new GenericCommandResult(true, "Pergunta salva", question);
+            return new GenericCommandResult(true, "Pergunta atualizada!", question);
         }
 
         public ICommandResult Handle(ToggleActiveCommand command)
