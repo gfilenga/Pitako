@@ -14,7 +14,8 @@ namespace Pitako.Domain.Handlers
         IHandler<CreateQuestionCommand>,
         IHandler<UpdateQuestionCommand>,
         IHandler<ToggleActiveCommand>,
-        IHandler<ListQuestionsCommand>
+        IHandler<ListQuestionsCommand>,
+        IHandler<DeleteQuestionCommand>
     {
         private readonly IQuestionRepository _repository;
         private readonly IUserRepository _userRepository;
@@ -127,6 +128,25 @@ namespace Pitako.Domain.Handlers
                 true,
                 "Lista de perguntas: ",
                 question
+            );
+        }
+
+        public ICommandResult Handle(DeleteQuestionCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(
+                    false,
+                    "Pergunta não encontrada",
+                    command.Notifications
+                );
+
+            _repository.Delete(command.Id);
+
+            return new GenericCommandResult(
+                true,
+                "Perguntada deletada!",
+                null
             );
         }
     }

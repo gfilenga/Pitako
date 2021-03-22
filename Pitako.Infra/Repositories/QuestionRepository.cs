@@ -24,6 +24,13 @@ namespace Pitako.Infra.Repositories
             _context.SaveChanges();
         }
 
+        public void Delete(Guid id)
+        {
+            var question = GetById(id);
+            _context.Questions.Remove(question);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Question> GetAll(User user)
         {
             return _context.Questions

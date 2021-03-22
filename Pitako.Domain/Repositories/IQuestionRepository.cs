@@ -8,6 +8,7 @@ namespace Pitako.Domain.Repositories
     {
         void Create(Question question);
         void Update(Question question);
+        void Delete(Guid id);
         Question GetById(Guid id);
 
         IEnumerable<Question> GetAll(User user);
