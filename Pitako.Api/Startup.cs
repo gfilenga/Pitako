@@ -35,6 +35,8 @@ namespace Pitako.Api
             services.AddTransient<QuestionHandler, QuestionHandler>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<UserHandler, UserHandler>();
+            services.AddTransient<IAnswerRepository, AnswerRepository>();
+            services.AddTransient<AnswerHandler, AnswerHandler>();
 
             services.AddSwaggerGen(c =>
             {

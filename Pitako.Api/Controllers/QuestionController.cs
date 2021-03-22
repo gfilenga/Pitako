@@ -16,7 +16,7 @@ namespace Pitako.Api.Controllers
 
         [Route("")]
         [HttpGet]
-        public GenericCommandResult List(
+        public GenericCommandResult GetAllByUser(
             [FromBody] ListQuestionsCommand command,
             [FromServices] QuestionHandler handler
         )

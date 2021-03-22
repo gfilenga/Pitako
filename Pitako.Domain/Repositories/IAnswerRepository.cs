@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Pitako.Domain.Entities;
 
 namespace Pitako.Domain.Repositories
@@ -7,8 +8,10 @@ namespace Pitako.Domain.Repositories
     {
         void Create(Answer answer);
         void Update(Answer answer);
+        void Delete(Guid id);
+        IEnumerable<Answer> GetAnswers(Guid questionId);
         User GetUserById(Guid id);
         Question GetQuestionById(Guid id);
-        Answer GetById(Guid id, User user);
+        Answer GetById(Guid id);
     }
 }
