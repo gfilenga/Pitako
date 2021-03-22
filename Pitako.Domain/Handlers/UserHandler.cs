@@ -10,7 +10,6 @@ namespace Pitako.Domain.Handlers
     public class UserHandler :
         Notifiable,
         IHandler<CreateUserCommand>,
-        IHandler<UpdateUserCommand>,
         IHandler<DeleteUserCommand>
     {
         private readonly IUserRepository _repository;
@@ -20,7 +19,7 @@ namespace Pitako.Domain.Handlers
             _repository = repository;
         }
 
-        public ICommandResult Handle(UpdateUserCommand command)
+        public ICommandResult Handle(UpdateUserCommand command, string id)
         {
             command.Validate();
             if (command.Invalid)
@@ -30,7 +29,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var user = _repository.GetById(command.Id.ToString());
+            var user = _repository.GetById(id);
 
             user.UpdateUser(command.Name, command.Email, command.Password);
 

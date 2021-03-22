@@ -9,15 +9,13 @@ namespace Pitako.Domain.Commands
     {
         public UpdateUserCommand() { }
 
-        public UpdateUserCommand(Guid id, string name, string email, string password)
+        public UpdateUserCommand(string name, string email, string password)
         {
-            Id = id;
             Name = name;
             Email = email;
             Password = password;
         }
 
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -27,7 +25,6 @@ namespace Pitako.Domain.Commands
             AddNotifications(
                 new Contract()
                 .Requires()
-                .HasLen(Id.ToString(), 36, "Id", "Id inválido")
                 .HasMinLen(Name, 2, "Name", "Please, write a valid name")
                 .HasMaxLen(Name, 254, "Name", "Please, don't exceed 254 letters")
                 .IsEmail(Email, "Email", "Please, write a valid email")

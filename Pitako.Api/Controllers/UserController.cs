@@ -41,14 +41,15 @@ namespace Pitako.Api.Controllers
             return (GenericCommandResult)handler.Handle(command);
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpPut]
         public GenericCommandResult Update(
+            string id,
             [FromBody] UpdateUserCommand command,
             [FromServices] UserHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command);
+            return (GenericCommandResult)handler.Handle(command, id);
         }
 
         [Route("{id}")]
