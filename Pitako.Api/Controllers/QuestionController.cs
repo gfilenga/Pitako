@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -63,14 +61,19 @@ namespace Pitako.Api.Controllers
             return (GenericCommandResult)handler.Handle(command);
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpDelete]
         public GenericCommandResult Delete(
-            [FromBody] DeleteQuestionCommand command,
-            [FromServices] QuestionHandler handler
+            string id,
+            [FromServices] IQuestionRepository repository
         )
         {
-            return (GenericCommandResult)handler.Handle(command);
+            repository.Delete(id);
+            return new GenericCommandResult(
+                true,
+                "Pergunta deletada!",
+                null
+            );
         }
     }
 }
