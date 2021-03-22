@@ -10,9 +10,9 @@ namespace Pitako.Domain.Queries
         {
             return x => x.Id == id;
         }
-        public static Expression<Func<Question, bool>> GetAll(User user)
+        public static Expression<Func<Question, bool>> GetAllByUser(string id)
         {
-            return x => x.UserId == user.Id;
+            return x => x.UserId.ToString() == id;
         }
 
         public static Expression<Func<Question, bool>> GetAllActive(User user)

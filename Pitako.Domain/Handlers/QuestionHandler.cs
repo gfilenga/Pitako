@@ -122,7 +122,7 @@ namespace Pitako.Domain.Handlers
 
             var user = _userRepository.GetById(command.UserId);
 
-            var question = _repository.GetAll(user);
+            var question = _repository.GetAllByUser(user.Id.ToString());
 
             return new GenericCommandResult(
                 true,

@@ -14,15 +14,25 @@ namespace Pitako.Api.Controllers
     public class QuestionController : ControllerBase
     {
 
-        [Route("")]
+        [Route("{userId}")]
         [HttpGet]
-        public GenericCommandResult GetAllByUser(
-            [FromBody] ListQuestionsCommand command,
-            [FromServices] QuestionHandler handler
+        public IEnumerable<Question> GetAllByUser(
+            string userId,
+            [FromServices] IQuestionRepository repository
         )
         {
-            return (GenericCommandResult)handler.Handle(command);
+            return repository.GetAllByUser(userId);
         }
+
+        [Route("")]
+        [HttpGet]
+        public IEnumerable<Question> GetAll(
+            [FromServices] IQuestionRepository repository
+        )
+        {
+            return repository.GetAll();
+        }
+
 
         [Route("")]
         [HttpPost]

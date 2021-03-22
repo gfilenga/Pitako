@@ -31,11 +31,11 @@ namespace Pitako.Infra.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Question> GetAll(User user)
+        public IEnumerable<Question> GetAllByUser(string id)
         {
             return _context.Questions
                 .AsNoTracking()
-                .Where(QuestionQueries.GetAll(user))
+                .Where(QuestionQueries.GetAllByUser(id))
                 .OrderBy(x => x.Date);
         }
 
@@ -75,6 +75,13 @@ namespace Pitako.Infra.Repositories
         {
             _context.Entry(question).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public IEnumerable<Question> GetAll()
+        {
+            return _context.Questions
+                    .AsNoTracking()
+                    .OrderBy(x => x.Date);
         }
     }
 }
