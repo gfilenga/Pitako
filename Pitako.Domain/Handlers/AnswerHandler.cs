@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Flunt.Notifications;
 using Pitako.Domain.Commands;
@@ -12,7 +13,6 @@ namespace Pitako.Domain.Handlers
         Notifiable,
         IHandler<CreateAnswerCommand>,
         IHandler<ToggleActiveAnswerCommand>,
-        IHandler<UpdateAnswerCommand>,
         IHandler<ListAnswersCommand>,
         IHandler<DeleteAnswerCommand>
     {
@@ -92,7 +92,7 @@ namespace Pitako.Domain.Handlers
             );
         }
 
-        public ICommandResult Handle(UpdateAnswerCommand command)
+        public ICommandResult Handle(UpdateAnswerCommand command, string id)
         {
             command.Validate();
             if (command.Invalid)
@@ -102,7 +102,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var answer = _repository.GetById(command.Id);
+            var answer = _repository.GetById(new Guid(id));
 
             // atualiza a descrição
             answer.UpdateAnswer(command.Description);
