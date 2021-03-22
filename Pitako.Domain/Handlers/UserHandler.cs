@@ -9,8 +9,7 @@ namespace Pitako.Domain.Handlers
 {
     public class UserHandler :
         Notifiable,
-        IHandler<CreateUserCommand>,
-        IHandler<DeleteUserCommand>
+        IHandler<CreateUserCommand>
     {
         private readonly IUserRepository _repository;
 
@@ -60,25 +59,6 @@ namespace Pitako.Domain.Handlers
                 true,
                 "Usuário criado",
                 user
-            );
-        }
-
-        public ICommandResult Handle(DeleteUserCommand command)
-        {
-            command.Validate();
-            if (command.Invalid)
-                return new GenericCommandResult(
-                    false,
-                    "ID inválido",
-                    command.Notifications
-                );
-
-            _repository.Delete(command.Id.ToString());
-
-            return new GenericCommandResult(
-                true,
-                "Usuário deletado",
-                null
             );
         }
     }
