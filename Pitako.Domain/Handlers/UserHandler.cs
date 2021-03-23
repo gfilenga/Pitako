@@ -31,7 +31,7 @@ namespace Pitako.Domain.Handlers
 
             var user = _repository.GetById(id);
 
-            user.UpdateUser(command.Name, command.Email, command.Password);
+            user.UpdateUser(command.Name, command.Email, command.Password, command.Role);
 
             _repository.Update(user);
 
@@ -52,7 +52,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var user = new User(command.Name, command.Email, command.Password);
+            var user = new User(command.Name, command.Email, command.Password, command.Role);
 
             _repository.Create(user);
 

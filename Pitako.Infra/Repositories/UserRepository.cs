@@ -39,6 +39,14 @@ namespace Pitako.Infra.Repositories
                 .ToList();
         }
 
+        public User Get(string name, string password)
+        {
+            return _context.Users
+                    .AsNoTracking()
+                    .Where(x => x.Name.ToLower() == name.ToLower() && x.Password == password)
+                    .FirstOrDefault();
+        }
+
         public User GetById(Guid id)
         {
             return _context.Users
