@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -15,6 +16,7 @@ namespace Pitako.Api.Controllers
     {
         [HttpPost]
         [Route("")]
+        [Authorize]
         public GenericCommandResult Post(
             [FromBody] CreateAnswerCommand command,
             [FromServices] AnswerHandler handler
@@ -35,6 +37,7 @@ namespace Pitako.Api.Controllers
 
         [Route("{id}")]
         [HttpDelete]
+        [Authorize]
         public GenericCommandResult Delete(
             string id,
             [FromServices] IAnswerRepository repository
@@ -50,6 +53,7 @@ namespace Pitako.Api.Controllers
 
         [Route("{id}")]
         [HttpPut]
+        [Authorize]
         public GenericCommandResult Update(
             string id,
             [FromBody] UpdateAnswerCommand command,

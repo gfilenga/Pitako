@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -44,6 +45,7 @@ namespace Pitako.Api.Controllers
 
         [Route("{userId}")]
         [HttpPost]
+        [Authorize]
         public GenericCommandResult Create(
             string userId,
             [FromBody] CreateQuestionCommand command,
@@ -55,6 +57,7 @@ namespace Pitako.Api.Controllers
 
         [Route("{id}")]
         [HttpPut]
+        [Authorize]
         public GenericCommandResult Update(
             string id,
             [FromBody] UpdateQuestionCommand command,
@@ -66,6 +69,7 @@ namespace Pitako.Api.Controllers
 
         [Route("{id}")]
         [HttpDelete]
+        [Authorize]
         public GenericCommandResult Delete(
             string id,
             [FromServices] IQuestionRepository repository
@@ -81,6 +85,7 @@ namespace Pitako.Api.Controllers
 
         [Route("toggle/{id}")]
         [HttpPut]
+        [Authorize]
         public GenericCommandResult ToggleActiveStatus(
             string id,
             [FromServices] QuestionHandler handler
