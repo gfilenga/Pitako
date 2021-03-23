@@ -78,5 +78,15 @@ namespace Pitako.Api.Controllers
                 null
             );
         }
+
+        [Route("toggle/{id}")]
+        [HttpPut]
+        public GenericCommandResult ToggleActiveStatus(
+            string id,
+            [FromServices] QuestionHandler handler
+        )
+        {
+            return (GenericCommandResult)handler.HandleToggleStatus(new Guid(id));
+        }
     }
 }

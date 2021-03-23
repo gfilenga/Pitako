@@ -10,7 +10,6 @@ namespace Pitako.Domain.Handlers
 {
     public class QuestionHandler :
         Notifiable,
-        IHandler<ToggleActiveCommand>,
         IHandler<ListQuestionsCommand>
     {
         private readonly IQuestionRepository _repository;
@@ -83,17 +82,16 @@ namespace Pitako.Domain.Handlers
             return new GenericCommandResult(true, "Pergunta atualizada!", question);
         }
 
-        public ICommandResult Handle(ToggleActiveCommand command)
+        public ICommandResult HandleToggleStatus(Guid id)
         {
-            command.Validate();
-            if (command.Invalid)
-                return new GenericCommandResult(
-                    false,
-                    "Ocorreu um erro ao mudar a privacidade da sua pergunta",
-                    command.Notifications
-                );
+            var question = _repository.GetById(id);
 
-            var question = _repository.GetById(command.Id);
+            if (question == null)
+                new GenericCommandResult(
+                    false,
+                    "Pergunta não encontrada",
+                    null
+                );
 
             question.ToogleStatus();
 
