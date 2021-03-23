@@ -92,7 +92,7 @@ namespace Pitako.Domain.Handlers
             );
         }
 
-        public ICommandResult Handle(UpdateAnswerCommand command, string id)
+        public ICommandResult Handle(UpdateAnswerCommand command, Guid id)
         {
             command.Validate();
             if (command.Invalid)
@@ -102,7 +102,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var answer = _repository.GetById(new Guid(id));
+            var answer = _repository.GetById(id);
 
             // atualiza a descrição
             answer.UpdateAnswer(command.Description);
@@ -136,7 +136,7 @@ namespace Pitako.Domain.Handlers
                     null
                 );
 
-            var answers = _repository.GetAnswers(command.QuestionId.ToString());
+            var answers = _repository.GetAnswers(command.QuestionId);
 
             if (answers == null)
                 return new GenericCommandResult(

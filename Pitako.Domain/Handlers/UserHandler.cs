@@ -1,3 +1,4 @@
+using System;
 using Flunt.Notifications;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Commands.Contracts;
@@ -18,7 +19,7 @@ namespace Pitako.Domain.Handlers
             _repository = repository;
         }
 
-        public ICommandResult Handle(UpdateUserCommand command, string id)
+        public ICommandResult Handle(UpdateUserCommand command, Guid id)
         {
             command.Validate();
             if (command.Invalid)

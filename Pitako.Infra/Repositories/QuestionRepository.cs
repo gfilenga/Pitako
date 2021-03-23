@@ -24,18 +24,18 @@ namespace Pitako.Infra.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(string id)
+        public void Delete(Guid id)
         {
             // var question = GetById(id);
             var question = _context.Questions
                     .AsNoTracking()
-                    .Where(x => x.Id.ToString() == id)
+                    .Where(x => x.Id == id)
                     .FirstOrDefault();
             _context.Questions.Remove(question);
             _context.SaveChanges();
         }
 
-        public IEnumerable<Question> GetAllByUser(string id)
+        public IEnumerable<Question> GetAllByUser(Guid id)
         {
             return _context.Questions
                 .AsNoTracking()
@@ -67,7 +67,7 @@ namespace Pitako.Infra.Repositories
                 .OrderBy(x => x.Date);
         }
 
-        public Question GetById(string id)
+        public Question GetById(Guid id)
         {
             return _context.Questions
                .AsNoTracking()

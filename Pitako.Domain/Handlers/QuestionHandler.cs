@@ -25,7 +25,7 @@ namespace Pitako.Domain.Handlers
             _userRepository = userRepository;
         }
 
-        public ICommandResult Handle(CreateQuestionCommand command, string userId)
+        public ICommandResult Handle(CreateQuestionCommand command, Guid userId)
         {
             command.Validate();
             if (command.Invalid)
@@ -49,7 +49,7 @@ namespace Pitako.Domain.Handlers
             }
 
             // Gerar a question
-            var question = new Question(command.Title, command.Description, new Guid(userId));
+            var question = new Question(command.Title, command.Description, userId);
 
             // Salva no banco
             _repository.Create(question);
@@ -58,7 +58,7 @@ namespace Pitako.Domain.Handlers
             return new GenericCommandResult(true, "Pergunta criada", question);
         }
 
-        public ICommandResult Handle(UpdateQuestionCommand command, string id)
+        public ICommandResult Handle(UpdateQuestionCommand command, Guid id)
         {
             // valida
             command.Validate();
@@ -93,7 +93,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var question = _repository.GetById(command.Id.ToString());
+            var question = _repository.GetById(command.Id);
 
             question.ToogleStatus();
 
@@ -116,9 +116,9 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var user = _userRepository.GetById(command.UserId.ToString());
+            var user = _userRepository.GetById(command.UserId);
 
-            var question = _repository.GetAllByUser(user.Id.ToString());
+            var question = _repository.GetAllByUser(user.Id);
 
             return new GenericCommandResult(
                 true,

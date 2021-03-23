@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
@@ -18,7 +19,7 @@ namespace Pitako.Api.Controllers
             [FromServices] IQuestionRepository repository
         )
         {
-            return repository.GetById(id);
+            return repository.GetById(new Guid(id));
         }
 
         [Route("user/{userId}")]
@@ -28,7 +29,7 @@ namespace Pitako.Api.Controllers
             [FromServices] IQuestionRepository repository
         )
         {
-            return repository.GetAllByUser(userId);
+            return repository.GetAllByUser(new Guid(userId));
         }
 
         [Route("")]
@@ -49,7 +50,7 @@ namespace Pitako.Api.Controllers
             [FromServices] QuestionHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command, userId);
+            return (GenericCommandResult)handler.Handle(command, new Guid(userId));
         }
 
         [Route("{id}")]
@@ -60,7 +61,7 @@ namespace Pitako.Api.Controllers
             [FromServices] QuestionHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command, id);
+            return (GenericCommandResult)handler.Handle(command, new Guid(id));
         }
 
         [Route("{id}")]
@@ -70,7 +71,7 @@ namespace Pitako.Api.Controllers
             [FromServices] IQuestionRepository repository
         )
         {
-            repository.Delete(id);
+            repository.Delete(new Guid(id));
             return new GenericCommandResult(
                 true,
                 "Pergunta deletada!",

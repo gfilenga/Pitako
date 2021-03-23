@@ -23,7 +23,7 @@ namespace Pitako.Infra.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(string id)
+        public void Delete(Guid id)
         {
             var user = GetById(id);
             _context.Users.Remove(user);
@@ -39,11 +39,11 @@ namespace Pitako.Infra.Repositories
                 .ToList();
         }
 
-        public User GetById(string id)
+        public User GetById(Guid id)
         {
             return _context.Users
                .AsNoTracking()
-               .Where(x => x.Id.ToString() == id)
+               .Where(x => x.Id == id)
                .FirstOrDefault();
         }
 

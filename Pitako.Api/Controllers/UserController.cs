@@ -19,7 +19,7 @@ namespace Pitako.Api.Controllers
             [FromServices] IUserRepository repository
         )
         {
-            return repository.GetById(id);
+            return repository.GetById(new Guid(id));
         }
 
         [Route("")]
@@ -49,7 +49,7 @@ namespace Pitako.Api.Controllers
             [FromServices] UserHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command, id);
+            return (GenericCommandResult)handler.Handle(command, new Guid(id));
         }
 
         [Route("{id}")]
@@ -59,7 +59,7 @@ namespace Pitako.Api.Controllers
             [FromServices] IUserRepository repository
         )
         {
-            repository.Delete(id);
+            repository.Delete(new Guid(id));
             return new GenericCommandResult(
                 true,
                 "Usuário deletado!",
