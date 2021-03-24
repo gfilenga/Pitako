@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -43,6 +44,7 @@ namespace Pitako.Api.Controllers
 
         [Route("{id}")]
         [HttpPut]
+        [Authorize]
         public GenericCommandResult Update(
             string id,
             [FromBody] UpdateUserCommand command,
@@ -54,6 +56,7 @@ namespace Pitako.Api.Controllers
 
         [Route("{id}")]
         [HttpDelete]
+        [Authorize]
         public GenericCommandResult Delete(
             string id,
             [FromServices] IUserRepository repository

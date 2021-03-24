@@ -20,6 +20,16 @@ namespace Pitako.Infra.Contexts
             .HasOne<User>(u => u.User)
             .WithMany(q => q.Questions)
             .HasForeignKey(u => u.UserId);
+
+            modelBuilder.Entity<Answer>()
+            .HasOne<User>(u => u.User)
+            .WithMany(q => q.Answers)
+            .HasForeignKey(u => u.UserId);
+
+            modelBuilder.Entity<Answer>()
+            .HasOne<Question>(u => u.Question)
+            .WithMany(q => q.Answers)
+            .HasForeignKey(u => u.QuestionId);
         }
     }
 }
