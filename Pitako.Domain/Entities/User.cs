@@ -8,9 +8,9 @@ namespace Pitako.Domain.Entities
         {
 
         }
-        public User(string name, string email, string password, string role)
+        public User(string username, string email, string password, string role)
         {
-            Name = name;
+            Username = username;
             Email = email;
             Password = password;
             Role = role;
@@ -18,7 +18,7 @@ namespace Pitako.Domain.Entities
             Answers = new List<Answer>();
         }
 
-        public string Name { get; private set; }
+        public string Username { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
 
@@ -26,9 +26,9 @@ namespace Pitako.Domain.Entities
         public ICollection<Answer> Answers { get; private set; }
         public ICollection<Question> Questions { get; private set; }
 
-        public void UpdateUser(string name, string email, string password, string role)
+        public void UpdateUser(string username, string email, string password, string role)
         {
-            Name = name;
+            Username = username;
             Email = email;
             Password = password;
             Role = role;

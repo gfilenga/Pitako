@@ -43,7 +43,7 @@ namespace Pitako.Infra.Repositories
         {
             return _context.Users
                     .AsNoTracking()
-                    .Where(x => x.Name.ToLower() == name.ToLower() && x.Password == password)
+                    .Where(x => x.Username.ToLower() == name.ToLower() && x.Password == password)
                     .FirstOrDefault();
         }
 

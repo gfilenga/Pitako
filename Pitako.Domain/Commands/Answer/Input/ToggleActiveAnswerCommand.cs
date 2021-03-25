@@ -26,8 +26,8 @@ namespace Pitako.Domain.Commands
             AddNotifications(
                 new Contract()
                 .HasLen(Id.ToString(), 36, "Id", "Id inválido")
-                .HasMinLen(User.Name, 2, "Name", "Please, write a valid name")
-                .HasMaxLen(User.Name, 254, "Name", "Please, don't exceed 254 letters")
+                .HasMinLen(User.Username, 2, "Name", "Please, write a valid name")
+                .HasMaxLen(User.Username, 254, "Name", "Please, don't exceed 254 letters")
                 .IsEmail(User.Email, "Email", "Please, write a valid email")
                 .HasMinLen(User.Password, 6, "Password", "Please, write a password with more than 6 letters")
                 .HasMaxLen(User.Password, 20, "Password", "Please, write a password with less than 20 letters")

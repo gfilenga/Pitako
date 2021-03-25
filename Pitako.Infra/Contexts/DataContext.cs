@@ -30,6 +30,20 @@ namespace Pitako.Infra.Contexts
             .HasOne<Question>(u => u.Question)
             .WithMany(q => q.Answers)
             .HasForeignKey(u => u.QuestionId);
+
+            modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(124);
+            modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(x => x.Role).HasMaxLength(6);
+
+
+
+            modelBuilder.Entity<Question>().Property(x => x.Title).HasMaxLength(124);
+            modelBuilder.Entity<Question>().Property(x => x.Description).HasMaxLength(1024);
+
+
+
+            modelBuilder.Entity<Answer>().Property(x => x.Description).HasMaxLength(1024);
         }
     }
 }

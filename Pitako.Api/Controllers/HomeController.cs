@@ -20,7 +20,7 @@ namespace Pitako.Api.Controllers
         )
         {
             // Recupera o usuário
-            var user = repository.Get(command.Name, command.Password);
+            var user = repository.Get(command.Username, command.Password);
 
             // Verifica se o usuário existe
             if (user == null)
