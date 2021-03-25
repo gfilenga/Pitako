@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Pitako.Domain.Entities;
 
@@ -16,20 +17,10 @@ namespace Pitako.Infra.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Question>()
-            .HasOne<User>(u => u.User)
-            .WithMany(q => q.Questions)
-            .HasForeignKey(u => u.UserId);
-
-            modelBuilder.Entity<Answer>()
-            .HasOne<User>(u => u.User)
-            .WithMany(q => q.Answers)
-            .HasForeignKey(u => u.UserId);
-
-            modelBuilder.Entity<Answer>()
-            .HasOne<Question>(u => u.Question)
-            .WithMany(q => q.Answers)
-            .HasForeignKey(u => u.QuestionId);
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(124);
             modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(20);

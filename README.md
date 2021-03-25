@@ -11,6 +11,7 @@
 - dotnet sln add .\Pitako.Domain\
 - dotnet sln add .\Pitako.Infra\
 - dotnet sln add .\Pitako.Tests\
+- dotnet tool install --global dotnet-ef (caso não tenha ainda na máquina)
 
 **Comandos Domain**
 
@@ -33,7 +34,11 @@
 - dotnet add package Microsoft.EntityFrameworkCore.Design
 - dotnet add package Microsoft.EntityFrameworkCore.Tools
 - dotnet add package Microsoft.EntityFrameworkCore.Relational
+- dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
+- dotnet ef migrations add InitialCreate --startup-project ..\Pitako.Api\ (ef migrations remove caso queira desfazer essa ação)
+
+- dotnet ef database update --startup-project ..\Pitako.Api\
 **Comando Tests**
 
 - dotnet new mstest
