@@ -19,6 +19,7 @@ namespace Pitako.Infra.Repositories
 
         public void Create(User user)
         {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Users.Add(user);
             _context.SaveChanges();
         }
@@ -62,6 +63,14 @@ namespace Pitako.Infra.Repositories
         {
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public User GetByUsername(string username)
+        {
+            return _context.Users
+                    .AsNoTracking()
+                    .Where(x => x.Username.ToLower() == username.ToLower())
+                    .FirstOrDefault();
         }
     }
 }

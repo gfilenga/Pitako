@@ -56,6 +56,8 @@ namespace Pitako.Domain.Handlers
 
             _repository.Create(user);
 
+            user.Password = "";
+
             return new GenericCommandResult(
                 true,
                 "Usuário criado",

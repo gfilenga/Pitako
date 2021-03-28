@@ -10,6 +10,7 @@ namespace Pitako.Domain.Repositories
         void Update(User user);
         void Delete(Guid id);
         User Get(string name, string password);
+        User GetByUsername(string username);
         IEnumerable<User> GetAll();
         User GetById(Guid id);
     }
