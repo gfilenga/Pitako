@@ -24,7 +24,7 @@ namespace Pitako.Infra.Contexts
 
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(124);
             modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(20);
-            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(124);
             modelBuilder.Entity<User>().Property(x => x.Role).HasMaxLength(6);
 
 

@@ -34,8 +34,6 @@ namespace Pitako.Infra.Repositories
         {
             return _context.Users
                 .AsNoTracking()
-                .Include(q => q.Questions)
-                .Include(a => a.Answers)
                 .ToList();
         }
 
