@@ -26,6 +26,8 @@
 - dotnet add package Microsoft.EntityFrameworkCore.Design
 - dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
+- dotnet add package BCrypt.Net-Next --version 4.0.2
+
 **Comandos Infra**
 
 - dotnet new classlib
@@ -39,6 +41,8 @@
 - dotnet ef migrations add InitialCreate --startup-project ..\Pitako.Api\ (ef migrations remove caso queira desfazer essa ação)
 
 - dotnet ef database update --startup-project ..\Pitako.Api\
+
+- dotnet add package BCrypt.Net-Next --version 4.0.2
 **Comando Tests**
 
 - dotnet new mstest

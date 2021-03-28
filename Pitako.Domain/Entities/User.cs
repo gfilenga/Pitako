@@ -20,7 +20,7 @@ namespace Pitako.Domain.Entities
 
         public string Username { get; private set; }
         public string Email { get; private set; }
-        public string Password { get; private set; }
+        public string Password { get; set; }
 
         public string Role { get; private set; }
         public ICollection<Answer> Answers { get; private set; }
