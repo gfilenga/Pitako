@@ -35,6 +35,8 @@ namespace Pitako.Domain.Handlers
 
             _repository.Update(user);
 
+            user.Password = "";
+
             return new GenericCommandResult(
                 true,
                 "Usuário atualizado",

@@ -61,6 +61,7 @@ namespace Pitako.Infra.Repositories
 
         public void Update(User user)
         {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
         }
