@@ -6,6 +6,11 @@ namespace Pitako.Infra.Contexts
 {
     public class DataContext : DbContext
     {
+        public DataContext()
+        {
+
+        }
+
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
@@ -19,7 +24,7 @@ namespace Pitako.Infra.Contexts
         {
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+                relationship.DeleteBehavior = DeleteBehavior.Cascade;
             }
 
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(124);

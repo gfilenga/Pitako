@@ -25,7 +25,12 @@ namespace Pitako.Infra.Repositories
 
         public void Delete(Guid id)
         {
-            var user = GetById(id);
+            var user = _context.Users
+                .AsNoTracking()
+                .Where(x => x.Id == id)
+                .Include(x => x.Questions)
+                .Include(x => x.Answers)
+                .FirstOrDefault();
             _context.Users.Remove(user);
             _context.SaveChanges();
         }
