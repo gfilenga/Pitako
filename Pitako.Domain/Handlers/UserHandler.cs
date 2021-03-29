@@ -44,6 +44,40 @@ namespace Pitako.Domain.Handlers
             );
         }
 
+        public ICommandResult Handle(UpdateUserPasswordCommand command, Guid id)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(
+                    false,
+                    "Erro ao trocar senha!",
+                    command.Notifications
+                );
+
+            var user = _repository.GetById(id);
+
+            bool isValidPassword = BCrypt.Net.BCrypt.Verify(command.CurrentPassword, user.Password);
+
+            if (!isValidPassword)
+                return new GenericCommandResult(
+                    false,
+                    "Senha incorreta",
+                    null
+                );
+
+            user.UpdatePassword(command.NewPassword);
+
+            _repository.Update(user);
+
+            user.Password = "";
+
+            return new GenericCommandResult(
+                true,
+                "Senha atualizada!",
+                user
+            );
+        }
+
         public ICommandResult Handle(CreateUserCommand command)
         {
             command.Validate();

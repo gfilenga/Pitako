@@ -54,6 +54,18 @@ namespace Pitako.Api.Controllers
             return (GenericCommandResult)handler.Handle(command, new Guid(id));
         }
 
+        [Route("password/{id}")]
+        [HttpPut]
+        [Authorize]
+        public GenericCommandResult UpdatePassword(
+            string id,
+            [FromBody] UpdateUserPasswordCommand command,
+            [FromServices] UserHandler handler
+        )
+        {
+            return (GenericCommandResult)handler.Handle(command, new Guid(id));
+        }
+
         [Route("{id}")]
         [HttpDelete]
         [Authorize]
