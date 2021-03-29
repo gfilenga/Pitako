@@ -33,5 +33,10 @@ namespace Pitako.Domain.Entities
             Password = password;
             Role = role;
         }
+
+        public void UpdatePassword(string password)
+        {
+            Password = password;
+        }
     }
 }
