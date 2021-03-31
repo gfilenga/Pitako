@@ -4,6 +4,11 @@
 
 # Estrutura inicial
 
+**Comandos Entity Framework**
+
+- dotnet ef migrations script --startup-project ..\Pitako.Api\ -o .\Idempotente.SQL -i
+- (Gera um script idempotentes do banco, esse comando é executado dentro do proj de infra)
+
 **Comandos Solution**
 
 - dotnet new sln
