@@ -12,10 +12,10 @@ namespace Pitako.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(124)", maxLength: 124, nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true)
+                    Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(124)", maxLength: 124, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(124)", maxLength: 124, nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true, defaultValue: "user")
                 },
                 constraints: table =>
                 {
@@ -27,10 +27,10 @@ namespace Pitako.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(124)", maxLength: 124, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(124)", maxLength: 124, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -49,7 +49,7 @@ namespace Pitako.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     QuestionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),

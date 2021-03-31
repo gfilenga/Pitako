@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Pitako.Domain.Entities;
+using Pitako.Infra.Contexts.Configurations;
 
 namespace Pitako.Infra.Contexts
 {
@@ -27,19 +28,13 @@ namespace Pitako.Infra.Contexts
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(124);
-            modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(20);
-            modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(124);
-            modelBuilder.Entity<User>().Property(x => x.Role).HasMaxLength(6);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
 
+            // ou
 
-
-            modelBuilder.Entity<Question>().Property(x => x.Title).HasMaxLength(124);
-            modelBuilder.Entity<Question>().Property(x => x.Description).HasMaxLength(1024);
-
-
-
-            modelBuilder.Entity<Answer>().Property(x => x.Description).HasMaxLength(1024);
+            // modelBuilder.ApplyConfiguration(new UserConfiguration());
+            // modelBuilder.ApplyConfiguration(new QuestionConfiguration());
+            // modelBuilder.ApplyConfiguration(new AnswerConfiguration());
         }
     }
 }

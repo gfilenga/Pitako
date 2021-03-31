@@ -32,6 +32,7 @@ namespace Pitako.Infra.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
@@ -60,13 +61,17 @@ namespace Pitako.Infra.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(124)
                         .HasColumnType("nvarchar(124)");
 
@@ -87,18 +92,23 @@ namespace Pitako.Infra.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(124)
                         .HasColumnType("nvarchar(124)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasMaxLength(124)
                         .HasColumnType("nvarchar(124)");
 
                     b.Property<string>("Role")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                        .HasColumnType("nvarchar(6)")
+                        .HasDefaultValue("user");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
