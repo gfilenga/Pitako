@@ -10,8 +10,8 @@ namespace Pitako.Tests.Queries
     public class QuestionQueriesTests
     {
         private List<Question> _questions;
-        private User _user1 = new User("guilherme", "gui.filenga@hotmail.com", "1234567");
-        private User _user2 = new User("Tatiana2", "tati2@hotmail.com", "1234567");
+        private User _user1 = new User("guilherme", "gui.filenga@hotmail.com", "1234567", "user");
+        private User _user2 = new User("Tatiana2", "tati2@hotmail.com", "1234567", "user");
 
         private Question _question1;
         private Question _question2;
@@ -23,24 +23,24 @@ namespace Pitako.Tests.Queries
         public QuestionQueriesTests()
         {
             _questions = new List<Question>();
-            _question1 = new Question("Ajuda1", "Preciso de um pitako1", _user1);
+            _question1 = new Question("Ajuda1", "Preciso de um pitako1", _user1.Id);
             _questions.Add(_question1);
-            _question2 = new Question("Ajuda2", "Preciso de um pitako2", _user1);
+            _question2 = new Question("Ajuda2", "Preciso de um pitako2", _user1.Id);
             _questions.Add(_question2);
-            _question3 = new Question("Ajuda3", "Preciso de um pitako3", _user1);
+            _question3 = new Question("Ajuda3", "Preciso de um pitako3", _user1.Id);
             _questions.Add(_question3);
-            _question4 = new Question("Ajuda4", "Preciso de um pitako4", _user2);
+            _question4 = new Question("Ajuda4", "Preciso de um pitako4", _user2.Id);
             _questions.Add(_question4);
-            _question5 = new Question("Ajuda5", "Preciso de um pitako5", _user2);
+            _question5 = new Question("Ajuda5", "Preciso de um pitako5", _user2.Id);
             _questions.Add(_question5);
-            _question6 = new Question("Ajuda6", "Preciso de um pitako6", _user2);
+            _question6 = new Question("Ajuda6", "Preciso de um pitako6", _user2.Id);
             _questions.Add(_question6);
         }
 
         [TestMethod]
         public void ShouldReturnTheQuestionFromASpecificUser()
         {
-            var result = _questions.AsQueryable().Where(QuestionQueries.GetAll(_user1));
+            var result = _questions.AsQueryable().Where(QuestionQueries.GetAllByUser(_user1.Id));
             Assert.AreEqual(result.Count(), 3);
         }
         [TestMethod]

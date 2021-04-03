@@ -9,9 +9,11 @@ namespace Pitako.Tests.Command
         private readonly CreateUserCommand _validCommand = new CreateUserCommand(
             "Guilherme",
             "gui.filenga@hotmail.com",
-            "1234567"
+            "1234567",
+            ""
         );
         private readonly CreateUserCommand _invalidCommand = new CreateUserCommand(
+            "",
             "",
             "",
             ""

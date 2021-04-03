@@ -17,12 +17,12 @@ namespace Pitako.Domain.Queries
 
         public static Expression<Func<Question, bool>> GetAllActive(User user)
         {
-            return x => x.User.Id == user.Id && x.Active == true;
+            return x => x.UserId == user.Id && x.Active == true;
         }
 
         public static Expression<Func<Question, bool>> GetAllUnactive(User user)
         {
-            return x => x.User.Id == user.Id && x.Active == false;
+            return x => x.UserId == user.Id && x.Active == false;
         }
 
         public static Expression<Func<Question, bool>> GetByPeriod(User user, DateTime date, bool active)

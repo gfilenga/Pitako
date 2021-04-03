@@ -11,7 +11,17 @@ namespace Pitako.Tests.Repositories
         {
         }
 
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Question> GetAll(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Question> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -26,6 +36,11 @@ namespace Pitako.Tests.Repositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Question> GetAllByUser(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Question> GetAllUnactive(User user)
         {
             throw new NotImplementedException();
@@ -33,8 +48,13 @@ namespace Pitako.Tests.Repositories
 
         public Question GetById(Guid id, User user)
         {
-            var user1 = new User("gui", "gui.filenga@hotmail.com", "1235678");
-            return new Question("AA", "AA", user1);
+            var user1 = new User("gui", "gui.filenga@hotmail.com", "1235678", "user");
+            return new Question("AA", "AA", user.Id);
+        }
+
+        public Question GetById(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Question question)

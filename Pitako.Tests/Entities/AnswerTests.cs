@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -9,18 +10,8 @@ namespace Pitako.Tests.Entities
     {
         private readonly Answer _answer = new Answer(
                 "Descrição atualizada",
-                new Question(
-                    "Vida Pessoal",
-                    "Preciso de ajuda",
-                    new User(
-                        "Eduardo",
-                        "edu.filenga@hotmail.com",
-                        "1234567")
-                ),
-                new User(
-                    "Guilherme",
-                    "gui.filenga@hotmail.com",
-                    "1234567")
+                Guid.NewGuid(),
+                Guid.NewGuid()
         );
 
         [TestMethod]

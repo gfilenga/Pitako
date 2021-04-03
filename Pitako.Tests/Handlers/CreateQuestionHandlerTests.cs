@@ -12,28 +12,29 @@ namespace Pitako.Tests.Handlers
     {
         private readonly CreateQuestionCommand _validCommand = new CreateQuestionCommand(
                     "Vida pessoal",
-                    "Preciso de uma opinião na minha vida pessoal",
-                    DateTime.Now,
-                    new User("Guilherme", "gui.filenga@hotmail.com", "1234567"));
+                    "Preciso de uma opinião na minha vida pessoal"
+                );
         private readonly CreateQuestionCommand _invalidCommand = new CreateQuestionCommand(
                     "",
-                    "",
-                    DateTime.Now,
-                    new User("", "", ""));
+                    ""
+                );
 
-        private readonly QuestionHandler _handler = new QuestionHandler(new FakeQuestionRepository());
+        private readonly QuestionHandler _handler = new QuestionHandler(
+                    new FakeQuestionRepository(),
+                    new FakeUserRepository()
+                );
 
         [TestMethod]
         public void ShouldStopExcecutionWhenCommandIsNotValid()
         {
-            var result = (GenericCommandResult)_handler.Handle(_invalidCommand);
+            var result = (GenericCommandResult)_handler.Handle(_invalidCommand, Guid.NewGuid());
             Assert.AreEqual(result.Success, false);
         }
 
         [TestMethod]
         public void ShouldExcecuteWhenCommandIsValid()
         {
-            var result = (GenericCommandResult)_handler.Handle(_validCommand);
+            var result = (GenericCommandResult)_handler.Handle(_validCommand, Guid.NewGuid());
             Assert.AreEqual(_handler.Valid, true);
         }
     }

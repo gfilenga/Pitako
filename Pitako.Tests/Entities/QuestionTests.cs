@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -10,10 +11,7 @@ namespace Pitako.Tests.Entities
         private readonly Question _question = new Question(
                         "Vida pessoal",
                         "Preciso de um pitako",
-                        new User(
-                            "Guilherme",
-                            "gui.filenga@hotmail.com",
-                            "1234567")
+                        Guid.NewGuid()
                         );
 
         [TestMethod]

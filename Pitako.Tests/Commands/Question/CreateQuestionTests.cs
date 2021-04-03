@@ -9,15 +9,12 @@ namespace Pitako.Tests.Command
     public class CreateQuestionTests
     {
         private readonly CreateQuestionCommand _validCommand = new CreateQuestionCommand(
-                    "Vida pessoal",
-                    "Preciso de uma opinião na minha vida pessoal",
-                    DateTime.Now,
-                    new User("Guilherme", "gui.filenga@hotmail.com", "1234567"));
+            "Isso é um título",
+            "Isso é uma descrição"
+        );
         private readonly CreateQuestionCommand _invalidCommand = new CreateQuestionCommand(
                     "",
-                    "",
-                    DateTime.Now,
-                    new User("", "", ""));
+                    "");
 
         [TestMethod]
         public void ShouldValidateWhenCommandIsValid()

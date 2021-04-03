@@ -10,15 +10,13 @@ namespace Pitako.Tests.Command
     {
         private readonly CreateAnswerCommand _validCommand = new CreateAnswerCommand(
             "Descrição da pergunta",
-            DateTime.Now,
-            new User("Guilherme", "gui.filenga@hotmail.com", "1234567"),
-            new Question("Helpppp", "Me ajudem com isso", new User("Eduardo", "edu.filenga@hotmail.com", "12345679"))
+            Guid.NewGuid(),
+            Guid.NewGuid()
         );
         private readonly CreateAnswerCommand _invalidCommand = new CreateAnswerCommand(
             "",
-            DateTime.Now,
-            new User("", "", ""),
-            new Question("", "", new User("", "", ""))
+            Guid.NewGuid(),
+            Guid.NewGuid()
         );
 
         [TestMethod]

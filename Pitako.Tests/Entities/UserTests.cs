@@ -11,7 +11,8 @@ namespace Pitako.Tests.Entities
         private readonly User _user = new User(
             "Guilherme",
             "gui.filenga@hotmail.com",
-            "1234567"
+            "1234567",
+            "user"
         );
 
         [TestMethod]
