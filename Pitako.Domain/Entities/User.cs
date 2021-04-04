@@ -26,13 +26,13 @@ namespace Pitako.Domain.Entities
         public ICollection<Answer> Answers { get; private set; }
         public ICollection<Question> Questions { get; private set; }
 
-        public void UpdateUser(string username, string email, string password, string role)
-        {
-            Username = username;
-            Email = email;
-            Password = password;
-            Role = role;
-        }
+        // public void UpdateUser(string username, string email, string password, string role)
+        // {
+        //     Username = username;
+        //     Email = email;
+        //     Password = password;
+        //     Role = role;
+        // }
 
         public void UpdatePassword(string password)
         {

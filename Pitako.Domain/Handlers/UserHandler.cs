@@ -34,9 +34,9 @@ namespace Pitako.Domain.Handlers
 
             var user = _repository.GetById(id);
 
-            user.UpdateUser(command.Username, command.Email, command.Password, command.Role);
+            // user.UpdateUser(command.Username, command.Email, command.Password, command.Role);
 
-            _repository.Update(user);
+            _repository.Update(_mapper.Map(command, user));
 
             user.Password = "";
 
