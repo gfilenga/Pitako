@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Flunt.Notifications;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Commands.Contracts;
@@ -13,10 +14,12 @@ namespace Pitako.Domain.Handlers
         IHandler<CreateUserCommand>
     {
         private readonly IUserRepository _repository;
+        private readonly IMapper _mapper;
 
-        public UserHandler(IUserRepository repository)
+        public UserHandler(IUserRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public ICommandResult Handle(UpdateUserCommand command, Guid id)
@@ -88,16 +91,17 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
-            var user = new User(command.Username, command.Email, command.Password, command.Role);
+            // var user = new User(command.Username, command.Email, command.Password, command.Role);
+            // _repository.Create(user);
 
-            _repository.Create(user);
+            _repository.Create(_mapper.Map<User>(command));
 
-            user.Password = "";
+            command.Password = "";
 
             return new GenericCommandResult(
                 true,
                 "Usuário criado",
-                user
+                command
             );
         }
     }
