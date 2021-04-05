@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Flunt.Notifications;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Commands.Contracts;
@@ -13,14 +14,15 @@ namespace Pitako.Domain.Handlers
         Notifiable,
         IHandler<CreateAnswerCommand>,
         IHandler<ToggleActiveAnswerCommand>,
-        IHandler<ListAnswersCommand>,
-        IHandler<DeleteAnswerCommand>
+        IHandler<ListAnswersCommand>
     {
         private readonly IAnswerRepository _repository;
+        private readonly IMapper _mapper;
 
-        public AnswerHandler(IAnswerRepository repository)
+        public AnswerHandler(IAnswerRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public ICommandResult Handle(CreateAnswerCommand command)
@@ -46,7 +48,6 @@ namespace Pitako.Domain.Handlers
                     command.Notifications);
             }
 
-
             if (user == null)
             {
                 return new GenericCommandResult(
@@ -56,7 +57,8 @@ namespace Pitako.Domain.Handlers
             }
 
             // compõe a resposta
-            var answer = new Answer(command.Description, question.Id, user.Id);
+            // var answer = new Answer(command.Description, question.Id, user.Id);
+            var answer = _mapper.Map<Answer>(command);
 
             // persiste a resposta
             _repository.Create(answer);
@@ -152,23 +154,5 @@ namespace Pitako.Domain.Handlers
             );
         }
 
-        public ICommandResult Handle(DeleteAnswerCommand command)
-        {
-            command.Validate();
-            if (command.Invalid)
-                return new GenericCommandResult(
-                    false,
-                    "Id da resposta inválido",
-                    command.Notifications
-                );
-
-            _repository.Delete(command.Id);
-
-            return new GenericCommandResult(
-                true,
-                "Resposta deletada!",
-                null
-            );
-        }
     }
 }

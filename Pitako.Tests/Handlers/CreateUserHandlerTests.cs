@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
@@ -10,6 +11,7 @@ namespace Pitako.Tests.Handlers
     [TestClass]
     public class CreateUserHandlerTests
     {
+        private readonly IMapper _mapper;
         private readonly UserHandler _handler = new UserHandler(new FakeUserRepository());
         private readonly CreateUserCommand _validCommand = new CreateUserCommand(
             "Guilherme",

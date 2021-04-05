@@ -13,27 +13,26 @@ namespace Pitako.Api.Controllers
     [Route("v1/questions")]
     public class QuestionController : ControllerBase
     {
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpGet]
         public Question Get(
-            string id,
+            Guid id,
             [FromServices] IQuestionRepository repository
         )
         {
-            return repository.GetById(new Guid(id));
+            return repository.GetById(id);
         }
 
-        [Route("user/{userId}")]
+        [Route("user/{userId:guid}")]
         [HttpGet]
         public IEnumerable<Question> GetAllByUser(
-            string userId,
+            Guid userId,
             [FromServices] IQuestionRepository repository
         )
         {
-            return repository.GetAllByUser(new Guid(userId));
+            return repository.GetAllByUser(userId);
         }
 
-        [Route("")]
         [HttpGet]
         public IEnumerable<Question> GetAll(
             [FromServices] IQuestionRepository repository
@@ -42,8 +41,6 @@ namespace Pitako.Api.Controllers
             return repository.GetAll();
         }
 
-
-        [Route("{userId}")]
         [HttpPost]
         [Authorize]
         public GenericCommandResult Create(
@@ -52,30 +49,30 @@ namespace Pitako.Api.Controllers
             [FromServices] QuestionHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command, new Guid(userId));
+            return (GenericCommandResult)handler.Handle(command);
         }
 
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpPut]
         [Authorize]
         public GenericCommandResult Update(
-            string id,
+            Guid id,
             [FromBody] UpdateQuestionCommand command,
             [FromServices] QuestionHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command, new Guid(id));
+            return (GenericCommandResult)handler.Handle(command, id);
         }
 
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpDelete]
         [Authorize]
         public GenericCommandResult Delete(
-            string id,
+            Guid id,
             [FromServices] IQuestionRepository repository
         )
         {
-            repository.Delete(new Guid(id));
+            repository.Delete(id);
             return new GenericCommandResult(
                 true,
                 "Pergunta deletada!",
