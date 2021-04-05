@@ -26,24 +26,24 @@ namespace Pitako.Api.Controllers
         }
 
         [HttpGet]
-        [Route("question/{questionId}")]
+        [Route("question/{questionId:guid}")]
         public IEnumerable<Answer> GetByQuestion(
-            string questionId,
+            Guid questionId,
             [FromServices] IAnswerRepository repository
         )
         {
-            return repository.GetAnswers(new Guid(questionId));
+            return repository.GetAnswers(questionId);
         }
 
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpDelete]
         [Authorize]
         public GenericCommandResult Delete(
-            string id,
+            Guid id,
             [FromServices] IAnswerRepository repository
         )
         {
-            repository.Delete(new Guid(id));
+            repository.Delete(id);
             return new GenericCommandResult(
                 true,
                 "Resposta deletada!",

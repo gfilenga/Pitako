@@ -14,8 +14,7 @@ namespace Pitako.Domain.Handlers
         Notifiable,
         IHandler<CreateAnswerCommand>,
         IHandler<ToggleActiveAnswerCommand>,
-        IHandler<ListAnswersCommand>,
-        IHandler<DeleteAnswerCommand>
+        IHandler<ListAnswersCommand>
     {
         private readonly IAnswerRepository _repository;
         private readonly IMapper _mapper;
@@ -155,23 +154,5 @@ namespace Pitako.Domain.Handlers
             );
         }
 
-        public ICommandResult Handle(DeleteAnswerCommand command)
-        {
-            command.Validate();
-            if (command.Invalid)
-                return new GenericCommandResult(
-                    false,
-                    "Id da resposta inválido",
-                    command.Notifications
-                );
-
-            _repository.Delete(command.Id);
-
-            return new GenericCommandResult(
-                true,
-                "Resposta deletada!",
-                null
-            );
-        }
     }
 }
