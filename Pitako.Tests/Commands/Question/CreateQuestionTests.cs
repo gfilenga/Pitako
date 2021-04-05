@@ -10,11 +10,14 @@ namespace Pitako.Tests.Command
     {
         private readonly CreateQuestionCommand _validCommand = new CreateQuestionCommand(
             "Isso é um título",
-            "Isso é uma descrição"
+            "Isso é uma descrição",
+            Guid.NewGuid()
         );
         private readonly CreateQuestionCommand _invalidCommand = new CreateQuestionCommand(
-                    "",
-                    "");
+                "",
+                "",
+                Guid.NewGuid()
+            );
 
         [TestMethod]
         public void ShouldValidateWhenCommandIsValid()

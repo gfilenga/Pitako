@@ -17,7 +17,6 @@ public class AutoMapping : Profile
         CreateMap<Question, DeleteQuestionCommand>().ReverseMap();
         CreateMap<Question, ToggleActiveCommand>().ReverseMap();
         CreateMap<Question, UpdateQuestionCommand>().ReverseMap();
-        CreateMap<Question, ListQuestionsCommand>().ReverseMap();
 
         // Answer
         CreateMap<Answer, CreateAnswerCommand>().ReverseMap();

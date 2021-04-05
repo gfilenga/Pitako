@@ -31,10 +31,10 @@ namespace Pitako.Domain.Entities
             Active = !Active;
         }
 
-        public void UpdateQuestion(string title, string description)
-        {
-            Title = title;
-            Description = description;
-        }
+        // public void UpdateQuestion(string title, string description)
+        // {
+        //     Title = title;
+        //     Description = description;
+        // }
     }
 }

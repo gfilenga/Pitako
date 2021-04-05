@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Flunt.Notifications;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Commands.Contracts;
@@ -9,22 +10,24 @@ using Pitako.Domain.Repositories;
 namespace Pitako.Domain.Handlers
 {
     public class QuestionHandler :
-        Notifiable,
-        IHandler<ListQuestionsCommand>
+        Notifiable
     {
         private readonly IQuestionRepository _repository;
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
         public QuestionHandler(
             IQuestionRepository repository,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            IMapper mapper
         )
         {
             _repository = repository;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
-        public ICommandResult Handle(CreateQuestionCommand command, Guid userId)
+        public ICommandResult Handle(CreateQuestionCommand command)
         {
             command.Validate();
             if (command.Invalid)
@@ -35,9 +38,7 @@ namespace Pitako.Domain.Handlers
                     command.Notifications);
             }
 
-
-            var user = _userRepository.GetById(userId);
-
+            var user = _userRepository.GetById(command.UserId);
 
             if (user == null)
             {
@@ -47,39 +48,50 @@ namespace Pitako.Domain.Handlers
                     command.Notifications);
             }
 
-            // Gerar a question
-            var question = new Question(command.Title, command.Description, userId);
+            // Gera a question
+            var question = _mapper.Map<Question>(command);
 
             // Salva no banco
             _repository.Create(question);
 
             // Retorna o resultado
-            return new GenericCommandResult(true, "Pergunta criada", question);
+            return new GenericCommandResult(
+                true,
+                "Pergunta criada",
+                question
+            );
         }
 
         public ICommandResult Handle(UpdateQuestionCommand command, Guid id)
         {
-            // valida
             command.Validate();
             if (command.Invalid)
-            {
                 return new GenericCommandResult(
                     false,
                     "Ops, parece que sua pergunta está inválida!",
-                    command.Notifications);
-            }
+                    command.Notifications
+                );
 
             // recupera do banco
             var question = _repository.GetById(id);
 
-            // altera as infos
-            question.UpdateQuestion(command.Title, command.Description);
+            if (question == null)
+                return new GenericCommandResult(
+                    false,
+                    "Ops, parece que sua pergunta não foi encontrada",
+                    null
+                );
 
             // salva no banco as infos novas
-            _repository.Update(question);
+            _repository.Update(_mapper.Map(command, question));
+
 
             // retorna o resultado
-            return new GenericCommandResult(true, "Pergunta atualizada!", question);
+            return new GenericCommandResult(
+                true,
+                "Pergunta atualizada!",
+                question
+            );
         }
 
         public ICommandResult HandleToggleStatus(Guid id)
@@ -100,27 +112,6 @@ namespace Pitako.Domain.Handlers
             return new GenericCommandResult(
                 true,
                 "Status atualizado",
-                question
-            );
-        }
-
-        public ICommandResult Handle(ListQuestionsCommand command)
-        {
-            command.Validate();
-            if (command.Invalid)
-                return new GenericCommandResult(
-                    false,
-                    "id inválido",
-                    command.Notifications
-                );
-
-            var user = _userRepository.GetById(command.UserId);
-
-            var question = _repository.GetAllByUser(user.Id);
-
-            return new GenericCommandResult(
-                true,
-                "Lista de perguntas: ",
                 question
             );
         }

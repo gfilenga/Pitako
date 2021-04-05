@@ -10,15 +10,12 @@ namespace Pitako.Domain.Commands
     {
         public UpdateQuestionCommand() { }
 
-        public UpdateQuestionCommand(Guid id, string title, string description)
+        public UpdateQuestionCommand(string title, string description)
         {
-            Id = id;
             Title = title;
             Description = description;
             Date = DateTime.Now;
         }
-
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
@@ -27,9 +24,8 @@ namespace Pitako.Domain.Commands
         {
             AddNotifications(
                 new Contract()
-                .HasLen(Id.ToString(), 36, "Id", "Id inválido")
-                .HasMinLen(Title, 2, "Name", "Please, write a title with more than 2 letters")
-                .HasMaxLen(Title, 124, "Name", "Please, don't exceed 124 letters")
+                .HasMinLen(Title, 2, "Title", "Please, write a title with more than 2 letters")
+                .HasMaxLen(Title, 124, "Title", "Please, don't exceed 124 letters")
                 .HasMinLen(Description, 2, "Description", "Please, write a description with more than 2 letters")
                 .HasMaxLen(Description, 1024, "Description", "Please, don't exceed 1024 letters")
             );

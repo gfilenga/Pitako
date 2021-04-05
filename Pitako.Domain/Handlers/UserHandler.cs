@@ -92,16 +92,18 @@ namespace Pitako.Domain.Handlers
                 );
 
             // var user = new User(command.Username, command.Email, command.Password, command.Role);
-            // _repository.Create(user);
+            // _repository.Create(user);\
 
-            _repository.Create(_mapper.Map<User>(command));
+            var user = _mapper.Map<User>(command);
 
-            command.Password = "";
+            _repository.Create(user);
+
+            user.Password = "";
 
             return new GenericCommandResult(
                 true,
                 "Usuário criado",
-                command
+                user
             );
         }
     }
