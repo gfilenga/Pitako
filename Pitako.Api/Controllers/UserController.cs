@@ -13,14 +13,14 @@ namespace Pitako.Api.Controllers
     [Route("v1/users")]
     public class UserController : ControllerBase
     {
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpGet]
         public User Get(
-            string id,
+            Guid id,
             [FromServices] IUserRepository repository
         )
         {
-            return repository.GetById(new Guid(id));
+            return repository.GetById(id);
         }
 
         [Route("")]
@@ -42,39 +42,39 @@ namespace Pitako.Api.Controllers
             return (GenericCommandResult)handler.Handle(command);
         }
 
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpPut]
         [Authorize]
         public GenericCommandResult Update(
-            string id,
+            Guid id,
             [FromBody] UpdateUserCommand command,
             [FromServices] UserHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command, new Guid(id));
+            return (GenericCommandResult)handler.Handle(command, id);
         }
 
-        [Route("password/{id}")]
+        [Route("password/{id:guid}")]
         [HttpPut]
         [Authorize]
         public GenericCommandResult UpdatePassword(
-            string id,
+            Guid id,
             [FromBody] UpdateUserPasswordCommand command,
             [FromServices] UserHandler handler
         )
         {
-            return (GenericCommandResult)handler.Handle(command, new Guid(id));
+            return (GenericCommandResult)handler.Handle(command, id);
         }
 
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpDelete]
         [Authorize]
         public GenericCommandResult Delete(
-            string id,
+            Guid id,
             [FromServices] IUserRepository repository
         )
         {
-            repository.Delete(new Guid(id));
+            repository.Delete(id);
             return new GenericCommandResult(
                 true,
                 "Usuário deletado!",
