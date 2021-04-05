@@ -64,15 +64,15 @@ namespace Pitako.Api.Controllers
             return (GenericCommandResult)handler.Handle(command, id);
         }
 
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [HttpDelete]
         [Authorize]
         public GenericCommandResult Delete(
-            string id,
+            Guid id,
             [FromServices] IQuestionRepository repository
         )
         {
-            repository.Delete(new Guid(id));
+            repository.Delete(id);
             return new GenericCommandResult(
                 true,
                 "Pergunta deletada!",

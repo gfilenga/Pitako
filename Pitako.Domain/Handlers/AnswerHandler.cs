@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Flunt.Notifications;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Commands.Contracts;
@@ -17,10 +18,12 @@ namespace Pitako.Domain.Handlers
         IHandler<DeleteAnswerCommand>
     {
         private readonly IAnswerRepository _repository;
+        private readonly IMapper _mapper;
 
-        public AnswerHandler(IAnswerRepository repository)
+        public AnswerHandler(IAnswerRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public ICommandResult Handle(CreateAnswerCommand command)
@@ -46,7 +49,6 @@ namespace Pitako.Domain.Handlers
                     command.Notifications);
             }
 
-
             if (user == null)
             {
                 return new GenericCommandResult(
@@ -56,7 +58,8 @@ namespace Pitako.Domain.Handlers
             }
 
             // compõe a resposta
-            var answer = new Answer(command.Description, question.Id, user.Id);
+            // var answer = new Answer(command.Description, question.Id, user.Id);
+            var answer = _mapper.Map<Answer>(command);
 
             // persiste a resposta
             _repository.Create(answer);
