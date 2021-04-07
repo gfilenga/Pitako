@@ -72,9 +72,11 @@ namespace Pitako.Api.Controllers
         [Authorize]
         public GenericCommandResult Delete(
             Guid id,
+            [FromServices] IAWSS3Service service,
             [FromServices] IUserRepository repository
         )
         {
+            service.DeleteImgAsync("avatar/", id.ToString());
             repository.Delete(id);
             return new GenericCommandResult(
                 true,
