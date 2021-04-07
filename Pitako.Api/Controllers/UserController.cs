@@ -81,5 +81,16 @@ namespace Pitako.Api.Controllers
                 null
             );
         }
+
+        [HttpPatch("avatar/{id:guid}")]
+        [Authorize]
+        public GenericCommandResult UpdateAvatar(
+            Guid id,
+            [FromBody] UpdateUserAvatarCommand command,
+            [FromServices] UserHandler handler
+        )
+        {
+            return (GenericCommandResult)handler.Handle(command, id);
+        }
     }
 }

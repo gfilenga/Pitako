@@ -5,6 +5,7 @@ using Pitako.Domain.Commands;
 using Pitako.Domain.Commands.Contracts;
 using Pitako.Domain.Entities;
 using Pitako.Domain.Handlers.Contracts;
+using Pitako.Domain.Interfaces;
 using Pitako.Domain.Repositories;
 
 namespace Pitako.Domain.Handlers
@@ -16,10 +17,13 @@ namespace Pitako.Domain.Handlers
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
 
-        public UserHandler(IUserRepository repository, IMapper mapper)
+        private readonly IAWSS3Service _aws;
+
+        public UserHandler(IUserRepository repository, IMapper mapper, IAWSS3Service aws)
         {
             _repository = repository;
             _mapper = mapper;
+            _aws = aws;
         }
 
         public ICommandResult Handle(UpdateUserCommand command, Guid id)
@@ -104,6 +108,29 @@ namespace Pitako.Domain.Handlers
                 true,
                 "Usuário criado",
                 user
+            );
+        }
+
+        public ICommandResult Handle(UpdateUserAvatarCommand command, Guid id)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(
+                    false,
+                    "Imagem inválida",
+                    command.Notifications
+                );
+
+            var result = _aws.PutImgAsync(command.AvatarB64, "avatar/", id.ToString());
+            var user = _repository.GetById(id);
+            user.UpdateAvatar(result.Result);
+
+            _repository.Update(user);
+
+            return new GenericCommandResult(
+                true,
+                "Avatar Atualizado",
+                result.Result
             );
         }
     }

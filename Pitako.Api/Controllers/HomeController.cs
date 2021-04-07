@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Repositories;
-using Shop.Services;
+using Pitako.Api.Services;
 
 namespace Pitako.Api.Controllers
 {
