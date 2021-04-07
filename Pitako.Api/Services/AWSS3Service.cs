@@ -11,9 +11,9 @@ namespace Pitako.Api.Services
     public class AWSS3Service : IAWSS3Service
     {
         public string BucketName => "pitako";
-        private static String _accessKey = "AKIA5CBOAD7AJTC7G4UQ";
+        private static String _accessKey = "AKIA5CBOAD7AO4UMRQMR";
 
-        private static String _accessSecret = "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";
+        private static String _accessSecret = "G2M+qQvSaGkf+WRBWRqF8O2AF2yCog3x/d0PGfSK";
 
 
         public async Task<string> PutImgAsync(string base64, string path, string id)
