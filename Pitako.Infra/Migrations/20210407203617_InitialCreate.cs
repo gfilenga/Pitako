@@ -15,6 +15,7 @@ namespace Pitako.Infra.Migrations
                     Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(124)", maxLength: 124, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(124)", maxLength: 124, nullable: false),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true, defaultValue: "user")
                 },
                 constraints: table =>

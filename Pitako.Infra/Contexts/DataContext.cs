@@ -25,7 +25,7 @@ namespace Pitako.Infra.Contexts
         {
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+                relationship.DeleteBehavior = DeleteBehavior.ClientCascade;
             }
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
