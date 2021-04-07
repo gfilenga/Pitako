@@ -9,8 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Pitako.Api.Services;
 using Pitako.Domain.Entities;
 using Pitako.Domain.Handlers;
+using Pitako.Domain.Interfaces;
 using Pitako.Domain.Repositories;
 using Pitako.Infra.Contexts;
 using Pitako.Infra.Repositories;
@@ -63,6 +65,7 @@ namespace Pitako.Api
             services.AddTransient<UserHandler, UserHandler>();
             services.AddTransient<IAnswerRepository, AnswerRepository>();
             services.AddTransient<AnswerHandler, AnswerHandler>();
+            services.AddTransient<IAWSS3Service, AWSS3Service>();
 
             services.AddSwaggerGen(c =>
             {

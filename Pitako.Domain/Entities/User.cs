@@ -21,7 +21,7 @@ namespace Pitako.Domain.Entities
         public string Username { get; private set; }
         public string Email { get; private set; }
         public string Password { get; set; }
-
+        public string Avatar { get; private set; }
         public string Role { get; private set; }
         public ICollection<Answer> Answers { get; private set; }
         public ICollection<Question> Questions { get; private set; }
@@ -37,6 +37,11 @@ namespace Pitako.Domain.Entities
         public void UpdatePassword(string password)
         {
             Password = password;
+        }
+
+        public void UpdateAvatar(string avatar)
+        {
+            Avatar = avatar;
         }
     }
 }

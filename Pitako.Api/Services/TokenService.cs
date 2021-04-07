@@ -3,10 +3,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Pitako.Api;
 using Pitako.Domain.Entities;
 
-namespace Shop.Services
+namespace Pitako.Api.Services
 {
     public static class TokenService
     {

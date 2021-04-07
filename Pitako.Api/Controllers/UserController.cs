@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pitako.Domain.Commands;
 using Pitako.Domain.Entities;
 using Pitako.Domain.Handlers;
+using Pitako.Domain.Interfaces;
 using Pitako.Domain.Repositories;
 
 namespace Pitako.Api.Controllers
@@ -78,6 +79,41 @@ namespace Pitako.Api.Controllers
             return new GenericCommandResult(
                 true,
                 "Usuário deletado!",
+                null
+            );
+        }
+
+        [HttpPatch("avatar/{id:guid}")]
+        [Authorize]
+        public GenericCommandResult UpdateAvatar(
+            Guid id,
+            [FromBody] UpdateUserAvatarCommand command,
+            [FromServices] UserHandler handler
+        )
+        {
+            return (GenericCommandResult)handler.Handle(command, id);
+        }
+
+        [HttpDelete("avatar/{id:guid}")]
+        [Authorize]
+        public GenericCommandResult DeleteAvatar(
+            Guid id,
+            [FromServices] IAWSS3Service service,
+            [FromServices] IUserRepository repository
+        )
+        {
+
+            service.DeleteImgAsync("avatar/", id.ToString());
+
+            var user = repository.GetById(id);
+
+            user.UpdateAvatar(null);
+
+            repository.Update(user);
+
+            return new GenericCommandResult(
+                true,
+                "Avatar deletado",
                 null
             );
         }
