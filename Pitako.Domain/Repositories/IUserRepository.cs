@@ -8,6 +8,7 @@ namespace Pitako.Domain.Repositories
     {
         void Create(User user);
         void Update(User user);
+        void UpdateAvatar(User user);
         void Delete(Guid id);
         User Get(string name, string password);
         User GetByUsername(string username);

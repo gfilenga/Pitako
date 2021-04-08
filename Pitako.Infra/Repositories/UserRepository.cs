@@ -65,6 +65,11 @@ namespace Pitako.Infra.Repositories
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
         }
+        public void UpdateAvatar(User user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
 
         public User GetByUsername(string username)
         {
@@ -73,5 +78,7 @@ namespace Pitako.Infra.Repositories
                     .Where(x => x.Username.ToLower() == username.ToLower())
                     .FirstOrDefault();
         }
+
+
     }
 }

@@ -41,6 +41,11 @@ namespace Pitako.Tests.Repositories
         {
         }
 
+        public void UpdateAvatar(User user)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdatePassword(Guid id, string password)
         {
         }

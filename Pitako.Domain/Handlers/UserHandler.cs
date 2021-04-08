@@ -125,7 +125,7 @@ namespace Pitako.Domain.Handlers
             var user = _repository.GetById(id);
             user.UpdateAvatar(result.Result);
 
-            _repository.Update(user);
+            _repository.UpdateAvatar(user);
 
             return new GenericCommandResult(
                 true,
