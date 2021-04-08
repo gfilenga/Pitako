@@ -95,8 +95,20 @@ namespace Pitako.Domain.Handlers
                     command.Notifications
                 );
 
+            // Checa se o username está disponível
+            var userExists = _repository.GetByUsername(command.Username);
+
+            if (userExists != null)
+            {
+                return new GenericCommandResult(
+                    false,
+                    "Usuário já utilizado",
+                    null
+                );
+            }
+
             // var user = new User(command.Username, command.Email, command.Password, command.Role);
-            // _repository.Create(user);\
+            // _repository.Create(user);
 
             var user = _mapper.Map<User>(command);
 
